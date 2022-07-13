@@ -42,7 +42,8 @@ Describe "Verifying integrity of module files" {
 	}
 
 	Context "Validating PS1 Script files" {
-		$allFiles = Get-ChildItem -Path $moduleRoot -Recurse | Where-Object Name -like "*.ps1" | Where-Object FullName -NotLike "$moduleRoot\tests\*"
+		$allFiles = Get-ChildItem -Path $moduleRoot -Recurse | Where-Object {
+			$_.Name -like "*.ps1"-and $_.FullName -NotLike "$moduleRoot\tests\*" -and $_.FullName -notlike "$moduleRoot\*\Examples\*"
 		
 		foreach ($file in $allFiles)
 		{
