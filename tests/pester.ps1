@@ -23,6 +23,22 @@ Remove-Module cScom -ErrorAction Ignore
 Import-Module "$PSScriptRoot\..\cScom\cScom.psd1"
 Import-Module "$PSScriptRoot\..\cScom\cScom.psm1" -Force
 
+enum Ensure
+{
+    Present
+    Absent
+}
+
+# Support for DSC v3, for what it's worth
+class Reason
+{
+    [DscProperty()]
+    [string] $Code
+  
+    [DscProperty()]
+    [string] $Phrase
+}
+
 # Need to import explicitly so we can use the configuration class
 Import-Module Pester
 
