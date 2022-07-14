@@ -1,6 +1,6 @@
 ﻿# List of functions that should be ignored
 $global:FunctionHelpTestExceptions = @(
-    
+    'Get-cScomParameter' # it just has too many parameters
 )
 
 <#

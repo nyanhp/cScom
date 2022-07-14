@@ -1,4 +1,14 @@
-﻿function Resolve-cScomModule
+﻿<#
+.SYNOPSIS
+    Locate and import OperationsManager module
+.DESCRIPTION
+    Locate and import OperationsManager module
+.EXAMPLE
+    Resolve-cScomModule
+
+    Imports module or writes an error if not present
+#>
+function Resolve-cScomModule
 {
     [CmdletBinding()]
     param ()

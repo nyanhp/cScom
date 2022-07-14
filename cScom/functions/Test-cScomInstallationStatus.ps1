@@ -1,4 +1,16 @@
-﻿function Test-cScomInstallationStatus
+﻿<#
+.SYNOPSIS
+    Test if SCOM components are installed
+.DESCRIPTION
+    Test if SCOM components are installed
+.EXAMPLE
+    Test-cScomInstallationStatus -ScomComponent @{Role = 'NativeConsole'}
+
+    returns boolean result indicating status.
+.PARAMETER ScomComponent
+    Hashtable resembling the DSC class ScomComponent.
+#>
+function Test-cScomInstallationStatus
 {
     [OutputType([Bool])]
     [CmdletBinding()]

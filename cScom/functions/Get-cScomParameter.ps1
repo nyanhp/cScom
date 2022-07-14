@@ -1,4 +1,14 @@
-﻿function Get-cScomParameter
+﻿<#
+.SYNOPSIS
+    Return a formatted command line to install SCOM
+.DESCRIPTION
+    Return a formatted command line to install SCOM
+.EXAMPLE
+    Get-cScomParameter @parameters
+
+    /install /silent /components:OMConsole /AcceptEndUserLicenseAgreement:"1" /EnableErrorReporting:"Never" /InstallLocation:"C:\Program Files\Microsoft System Center\Operations Manager" /SendCEIPReports:"0" /UseMicrosoftUpdate:"0"
+#>
+function Get-cScomParameter
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PsAvoidUsingPlaintextForPassword", "", Justification = "Nope")]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingUsernameAndPasswordParams", "", Justification = "Nope")]
