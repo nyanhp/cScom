@@ -3,6 +3,7 @@
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PsAvoidUsingPlaintextForPassword", "", Justification = "Nope")]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingUsernameAndPasswordParams", "", Justification = "Nope")]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSReviewUnusedParameter", "", Justification = "Parameters used programmatically")]
+    [OutputType([string])]
     [CmdletBinding()]
     param
     (

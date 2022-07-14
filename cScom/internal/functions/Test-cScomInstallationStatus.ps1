@@ -1,5 +1,6 @@
 ﻿function Test-cScomInstallationStatus
 {
+    [OutputType([Bool])]
     [CmdletBinding()]
     param
     (
@@ -21,7 +22,6 @@
     {
         if (Get-Command -Name Get-Package -ErrorAction SilentlyContinue)
         {
-            write-host " return [bool](Get-Package -Name 'System Center Operations Manager Console' -ProviderName Programs -ErrorAction SilentlyContinue)"
             return [bool](Get-Package -Name 'System Center Operations Manager Console' -ProviderName Programs -ErrorAction SilentlyContinue)
         }
 
