@@ -48,9 +48,6 @@ Get-ChildItem -Path "$($publishDir.FullName)\cScom\classes\" -Recurse -File -Fil
 Get-ChildItem -Path "$($publishDir.FullName)\cScom\internal\functions\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
 	$text += [System.IO.File]::ReadAllText($_.FullName)
 }
-Get-ChildItem -Path "$($publishDir.FullName)\cScom\resources\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
-	$text += [System.IO.File]::ReadAllText($_.FullName)
-}
 
 # Gather scripts
 Get-ChildItem -Path "$($publishDir.FullName)\cScom\internal\scripts\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
@@ -60,7 +57,6 @@ Get-ChildItem -Path "$($publishDir.FullName)\cScom\internal\scripts\" -Recurse -
 #region Update the psm1 file & Cleanup
 [System.IO.File]::WriteAllText("$($publishDir.FullName)\cScom\cScom.psm1", ($text -join "`n`n"), [System.Text.Encoding]::UTF8)
 Remove-Item -Path "$($publishDir.FullName)\cScom\internal" -Recurse -Force
-Remove-Item -Path "$($publishDir.FullName)\cScom\resources" -Recurse -Force
 #endregion Update the psm1 file & Cleanup
 
 #region Updating the Module Version

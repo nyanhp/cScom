@@ -1,4 +1,20 @@
-﻿[DscResource()]
+﻿enum Ensure
+{
+    Present
+    Absent
+}
+
+# Support for DSC v3, for what it's worth
+class Reason
+{
+    [DscProperty()]
+    [string] $Code
+  
+    [DscProperty()]
+    [string] $Phrase
+}
+
+[DscResource()]
 class ScomManagementPack
 {
     [DscProperty(Key)] [System.String] $Name
