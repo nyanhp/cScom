@@ -58,10 +58,14 @@
     # FormatsToProcess = @()
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-    NestedModules = @('DscResources/JHP_ScomComponent.psm1')
+    NestedModules        = @('DscResources/JHP_ScomComponent.psm1')
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport    = @( )
+    FunctionsToExport    = @(
+        'Get-cScomParameter'
+        'Resolve-cScomModule'
+        'Test-cScomInstallationStatus'
+    )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     # CmdletsToExport = '*'
@@ -105,7 +109,7 @@
             # ReleaseNotes = ''
 
             # Prerelease string of this module
-            Prerelease = 'dev002'
+            Prerelease = 'dev003'
 
             # Flag to indicate whether the module requires explicit user acceptance for install/update/save
             # RequireLicenseAcceptance = $false

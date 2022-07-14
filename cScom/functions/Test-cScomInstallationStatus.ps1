@@ -12,7 +12,7 @@
     {
         if (Get-Command -Name Get-Package -ErrorAction SilentlyContinue)
         {
-            return [bool](Get-Package -Name 'System Center Operations Manager Server' -ProviderName Programs -ErrorAction SilentlyContinue)
+            return [bool](Get-Package -Name 'System Center Operations Manager Server' -ProviderName msi -ErrorAction SilentlyContinue)
         }
 
         return (Test-Path -Path (Join-Path -Path $ScomComponent.InstallLocation -ChildPath Server))
@@ -22,7 +22,7 @@
     {
         if (Get-Command -Name Get-Package -ErrorAction SilentlyContinue)
         {
-            return [bool](Get-Package -Name 'System Center Operations Manager Console' -ProviderName Programs -ErrorAction SilentlyContinue)
+            return [bool](Get-Package -Name 'System Center Operations Manager Console' -ProviderName msi -ErrorAction SilentlyContinue)
         }
 
         return (Test-Path -Path (Join-Path -Path $ScomComponent.InstallLocation -ChildPath Console))

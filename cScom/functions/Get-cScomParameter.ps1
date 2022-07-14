@@ -60,7 +60,9 @@
         [string]
         $SRSInstance,
         [uint16]
-        $UseMicrosoftUpdate = 0
+        $UseMicrosoftUpdate = 0,
+        [switch]
+        $Uninstall
     )
 
     $parameters = @{
@@ -148,9 +150,25 @@
     
     switch ($Role)
     {
-        { $Role -in 'FirstManagementServer', 'AdditionalManagementServer' } { "/install /silent /components:OMServer $arguments" }
-        'NativeConsole' { "/install /silent /components:OMConsole $arguments" }
-        'WebConsole' { "/install /silent /components:OMWebConsole $arguments" }
-        'ReportServer' { "/install /silent /components:OMReporting $arguments" }
+        { $Role -in 'FirstManagementServer', 'AdditionalManagementServer' }
+        { 
+            if ($Uninstall.IsPresent) { '/uninstall /silent /components:OMServer'; break }
+            "/install /silent /components:OMServer $arguments" 
+        }
+        'NativeConsole'
+        { 
+            if ($Uninstall.IsPresent) { '/uninstall /silent /components:OMConsole'; break }
+            "/install /silent /components:OMConsole $arguments" 
+        }
+        'WebConsole'
+        { 
+            if ($Uninstall.IsPresent) { '/uninstall /silent /components:OMWebConsole'; break }
+            "/install /silent /components:OMWebConsole $arguments" 
+        }
+        'ReportServer'
+        { 
+            if ($Uninstall.IsPresent) { '/uninstall /silent /components:OMReporting'; break }
+            "/install /silent /components:OMReporting $arguments" 
+        }
     }
 }

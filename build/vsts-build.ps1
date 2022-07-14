@@ -45,6 +45,9 @@ $text = @()
 Get-ChildItem -Path "$($publishDir.FullName)\cScom\classes\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
 	$text += [System.IO.File]::ReadAllText($_.FullName)
 }
+Get-ChildItem -Path "$($publishDir.FullName)\cScom\functions\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
+	$text += [System.IO.File]::ReadAllText($_.FullName)
+}
 Get-ChildItem -Path "$($publishDir.FullName)\cScom\internal\functions\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
 	$text += [System.IO.File]::ReadAllText($_.FullName)
 }
