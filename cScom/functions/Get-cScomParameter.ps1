@@ -24,6 +24,9 @@ function Get-cScomParameter
         [string]
         $ManagementGroupName,
 
+        [uint16]
+        $ManagementServicePort,
+
         [string]
         $SqlServerInstance,
 

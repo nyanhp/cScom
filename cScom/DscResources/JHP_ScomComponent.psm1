@@ -113,12 +113,12 @@ class ScomComponent
 
         switch ($this.Role)
         {
-            [Role]::FirstManagementServer
+            'FirstManagementServer'
             {
                 $parameters['DwDatabaseName'] = $this.DwDatabaseName
                 $parameters['DwSqlInstancePort'] = $this.DwSqlInstancePort
                 $parameters['DwSqlServerInstance'] = $this.DwSqlServerInstance
-                $parameters['ManagementGroupName '] = $this.ManagementGroupName
+                $parameters['ManagementGroupName'] = $this.ManagementGroupName
                 $parameters['ActionAccountPassword'] = $this.ActionAccount.GetNetworkCredential().Password
                 $parameters['ActionAccountUser'] = $this.ActionAccount.UserName
                 $parameters['DASAccountPassword'] = $this.DASAccount.GetNetworkCredential().Password
@@ -133,7 +133,7 @@ class ScomComponent
                 $parameters['SqlInstancePort'] = $this.SqlInstancePort
                 $parameters['SqlServerInstance'] = $this.SqlServerInstance
             }
-            [Role]::AdditionalManagementServer
+            'AdditionalManagementServer'
             {
                 $parameters['ActionAccountPassword'] = $this.ActionAccount.GetNetworkCredential().Password
                 $parameters['ActionAccountUser'] = $this.ActionAccount.UserName
@@ -149,35 +149,41 @@ class ScomComponent
                 $parameters['SqlInstancePort'] = $this.SqlInstancePort
                 $parameters['SqlServerInstance'] = $this.SqlServerInstance
             }
-            [Role]::ReportServer
+            'ReportServer'
             {
                 $parameters['ManagementServer'] = $this.ManagementServer
                 $parameters['SRSInstance'] = $this.SRSInstance
                 $parameters['DataReaderUser'] = $this.DataReader.UserName
                 $parameters['DataReaderPassword'] = $this.DataReader.GetNetworkCredential().Password
             }
-            [Role]::WebConsole
+            'WebConsole'
             {
                 $parameters['WebSiteName'] = $this.WebSiteName
                 $parameters['ManagementServer'] = $this.ManagementServer
                 $parameters['WebConsoleAuthorizationMode'] = $this.WebConsoleAuthorizationMode
             }
-            [Role]::NativeConsole
+            'NativeConsole'
             {
                 $parameters['InstallLocation'] = $this.InstallLocation
             }
         }
 
         $commandline = Get-cScomParameter @parameters -Uninstall:$($this.Ensure -eq 'Absent')
-
-        $setupEchse = Get-ChildItem -Path $this.InstallLocation -Filter setup.exe
+        $setupEchse = Get-ChildItem -Path $this.SourcePath -Filter setup.exe
 
         if (-not $setupEchse)
         {
-            Write-Error -Message "Path $($this.InstallLocation) is missing setup.exe"
+            Write-Error -Message "Path $($this.SourcePath) is missing setup.exe"
             return
         }
 
+        $obfuscatedCmdline = $commandline
+        foreach ($pwdKey in $parameters.GetEnumerator())
+        {
+            if ($pwdKey.Key -notlike '*Password') { continue }
+            $obfuscatedCmdline = $obfuscatedCmdline.Replace($pwdKey.Value, '******')
+        }
+        Write-Verbose -Message "Starting setup of SCOM $($this.Role): $($setupEchse.FullName) $commandLine"
         $installation = Start-Process -Wait -PassThru -FilePath $setupEchse.FullName -ArgumentList $commandLine -WindowStyle Hidden
 
         if ($installation.ExitCode -eq 3010) { $global:DSCMachineStatus = 1; return }
