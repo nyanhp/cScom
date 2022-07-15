@@ -43,7 +43,9 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    # RequiredModules = @()
+    RequiredModules      = @(
+        'AutomatedLab.Common'
+    )
 
     # Assemblies that must be loaded prior to importing this module
     # RequiredAssemblies = @()
@@ -112,7 +114,7 @@
             # ReleaseNotes = ''
 
             # Prerelease string of this module
-            Prerelease = 'dev003'
+            Prerelease = 'dev3'
 
             # Flag to indicate whether the module requires explicit user acceptance for install/update/save
             # RequireLicenseAcceptance = $false

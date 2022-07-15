@@ -34,23 +34,38 @@ class ScomComponent
     [DscProperty()] [System.Management.Automation.PSCredential] $DataReader
     [DscProperty()] [System.Management.Automation.PSCredential] $DataWriter
     [DscProperty()] [System.String] $SqlServerInstance
-    [DscProperty()] [uint16] $SqlInstancePort = 1433
-    [DscProperty()] [uint16] $DwSqlInstancePort = 1433
+    [DscProperty()] [uint16] $SqlInstancePort
+    [DscProperty()] [uint16] $DwSqlInstancePort
     [DscProperty()] [System.String] $DwSqlServerInstance
-    [DscProperty()] [Ensure] $Ensure = 'Present'
+    [DscProperty()] [Ensure] $Ensure
     [DscProperty()] [System.String] $ProductKey
-    [DscProperty()] [System.String] $InstallLocation = 'C:\Program Files\Microsoft System Center\Operations Manager'
-    [DscProperty()] [System.UInt16] $ManagementServicePort = 5723
+    [DscProperty()] [System.String] $InstallLocation
+    [DscProperty()] [System.UInt16] $ManagementServicePort
     [DscProperty()] [System.Management.Automation.PSCredential] $ActionAccount
     [DscProperty()] [System.Management.Automation.PSCredential] $DASAccount
-    [DscProperty()] [System.String] $DatabaseName = "OperationsManager"
-    [DscProperty()] [System.String] $DwDatabaseName = "OperationsManagerDW"
-    [DscProperty()] [string] $WebSiteName = 'Default Web Site'
-    [DscProperty()] [string] $WebConsoleAuthorizationMode = 'Mixed'
-    [DscProperty()] [bool] $WebConsoleUseSSL = $false
-    [DscProperty()] [bool] $UseMicrosoftUpdate = $true
+    [DscProperty()] [System.String] $DatabaseName
+    [DscProperty()] [System.String] $DwDatabaseName
+    [DscProperty()] [string] $WebSiteName
+    [DscProperty()] [string] $WebConsoleAuthorizationMode
+    [DscProperty()] [bool] $WebConsoleUseSSL
+    [DscProperty()] [bool] $UseMicrosoftUpdate
     [DscProperty()] [string] $SRSInstance
     [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+
+    ScomComponent ()
+    {
+        $this.InstallLocation = 'C:\Program Files\Microsoft System Center\Operations Manager'
+        $this.Ensure = 'Present'
+        $this.DatabaseName = "OperationsManager"
+        $this.DwDatabaseName = "OperationsManagerDW"
+        $this.WebSiteName = 'Default Web Site'
+        $this.WebConsoleAuthorizationMode = 'Mixed'
+        $this.WebConsoleUseSSL = $false
+        $this.UseMicrosoftUpdate = $true
+        $this.SqlInstancePort = 1433
+        $this.DwSqlInstancePort = 1433
+        $this.ManagementServicePort = 5723
+    }
 
     [ScomComponent] Get()
     {
@@ -200,23 +215,28 @@ class ScomComponent
         return ($currentStatus.Reasons.Count -eq 0) # Shrug-Emoji :)
     }
 
-    [Hashtable] GetConfigurableDscProperties() {
+    [Hashtable] GetConfigurableDscProperties()
+    {
         # This method returns a hashtable of properties with two special workarounds
         # The hashtable will not include any properties marked as "NotConfigurable"
         # Any properties with a ValidateSet of "True","False" will beconverted to Boolean type
         # The intent is to simplify splatting to functions
         # Source: https://gist.github.com/mgreenegit/e3a9b4e136fc2d510cf87e20390daa44
         $DscProperties = @{}
-        foreach ($property in [ScomComponent].GetProperties().Name) {
+        foreach ($property in [ScomComponent].GetProperties().Name)
+        {
             # Checks if "NotConfigurable" attribute is set
             $notConfigurable = [ScomComponent].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
-            if (!$notConfigurable) {
+            if (!$notConfigurable)
+            {
                 $value = $this.$property
                 # Gets the list of valid values from the ValidateSet attribute
                 $validateSet = [ScomComponent].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
-                if ($validateSet) {
+                if ($validateSet)
+                {
                     # Workaround for boolean types
-                    if ($null -eq (Compare-Object @('True', 'False') $validateSet)) {
+                    if ($null -eq (Compare-Object @('True', 'False') $validateSet))
+                    {
                         $value = [System.Convert]::ToBoolean($this.$property)
                     }
                 }

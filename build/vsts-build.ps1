@@ -37,6 +37,7 @@ if (-not $WorkingDirectory) { $WorkingDirectory = Split-Path $PSScriptRoot }
 Write-Host "Creating and populating publishing directory"
 $publishDir = New-Item -Path $WorkingDirectory -Name publish -ItemType Directory -Force
 Copy-Item -Path "$($WorkingDirectory)\cScom" -Destination $publishDir.FullName -Recurse -Force
+$theModule = Import-PowerShellDataFile -Path "$($publishDir.FullName)\cScom\cScom.psd1"
 
 #region Gather text data to compile
 $text = @()
@@ -66,7 +67,7 @@ Remove-Item -Path "$($publishDir.FullName)\cScom\internal" -Recurse -Force
 if ($AutoVersion)
 {
 	Write-Host  "Updating module version numbers."
-	try { [version]$remoteVersion = (Find-Module 'cScom' -Repository $Repository -ErrorAction Stop).Version }
+	try { $remoteVersion = (Find-Module 'cScom' -Repository $Repository -ErrorAction Stop -AllowPrerelease:$(-not [string]::IsNullOrWhiteSpace($theModule.PrivateData.PSData.Prerelease))).Version }
 	catch
 	{
 		throw "Failed to access $($Repository) : $_"
@@ -75,9 +76,26 @@ if ($AutoVersion)
 	{
 		throw "Couldn't find cScom on repository $($Repository) : $_"
 	}
-	$newBuildNumber = $remoteVersion.Build + 1
-	[version]$localVersion = (Import-PowerShellDataFile -Path "$($publishDir.FullName)\cScom\cScom.psd1").ModuleVersion
-	Update-ModuleManifest -Path "$($publishDir.FullName)\cScom\cScom.psd1" -ModuleVersion "$($localVersion.Major).$($localVersion.Minor).$($newBuildNumber)"
+
+	$parameter = @{
+		Path = "$($publishDir.FullName)\cScom\cScom.psd1"
+	}
+
+	[Version]$remoteModuleVersion = $remoteVersion -replace '-\w+'
+	[string]$prerelease = $remoteVersion -replace '[\d\.]+-'
+	if ($prerelease)
+	{
+		$null = $prerelease -match '\d+'
+		$number = [int]$Matches.0 + 1
+		$parameter['Prerelease'] = $prerelease -replace '\d', $number
+	}
+	else
+	{
+		$newBuildNumber = $remoteModuleVersion.Build + 1
+		[version]$localVersion = $theModule.ModuleVersion
+		$parameter['ModuleVersion'] = "$($localVersion.Major).$($localVersion.Minor).$($newBuildNumber)"
+	}
+	Update-ModuleManifest @parameter
 }
 #endregion Updating the Module Version
 
