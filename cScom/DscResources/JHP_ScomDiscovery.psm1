@@ -28,7 +28,7 @@ function Get-Resource
 
         [Parameter()]
         [string[]]
-        $Class,
+        $ClassName,
 
         [Parameter()]
         [string[]]
@@ -83,7 +83,7 @@ function Get-Resource
     return @{
         Discovery       = $disco.Name
         ManagementPack  = $manPack.Name
-        Class           = $Class
+        Class           = $ClassName
         GroupOrInstance = $GroupOrInstance
         Enforce         = $Enforce
         Reasons         = $reasonList
@@ -104,7 +104,7 @@ function Set-Resource
 
         [Parameter()]
         [string[]]
-        $Class,
+        $ClassName,
 
         [Parameter()]
         [string[]]
@@ -139,10 +139,10 @@ function Set-Resource
         Enforce        = $Enforce
     }
     
-    if ($Class)
+    if ($ClassName)
     {
-        $scomClass = Get-SCOMClass | Where-Object { $_.DisplayName -in $Class -or $_.Name -in $Class }
-        if (-not $scomClass) { Write-Error -Message "No class(es) called $($Class) found."; return }
+        $scomClass = Get-SCOMClass | Where-Object { $_.DisplayName -in $ClassName -or $_.Name -in $ClassName }
+        if (-not $scomClass) { Write-Error -Message "No class(es) called $($ClassName) found."; return }
 
         $parameters['Class'] = $scomClass
     }
@@ -151,7 +151,7 @@ function Set-Resource
         $scomInstance = Get-SCOMClassInstance | Where-Object DisplayName -in $GroupOrInstance
         if (-not $scomInstance) { Write-Error -Message "No class instance(s) or group(s) called $($GroupOrInstance) found."; return }
 
-        $parameters['Instance'] = $Class
+        $parameters['Instance'] = $ClassName
     }
 
     if ($Ensure -eq 'Present')
@@ -179,7 +179,7 @@ function Test-Resource
 
         [Parameter()]
         [string[]]
-        $Class,
+        $ClassName,
 
         [Parameter()]
         [string[]]
@@ -202,7 +202,7 @@ class ScomDiscovery
 {
     [DscProperty(Key)] [string] $Discovery
     [DscProperty(Key)] [string] $ManagementPack
-    [DscProperty()] [string[]] $Class
+    [DscProperty()] [string[]] $ClassName
     [DscProperty()] [string[]] $GroupOrInstance
     [DscProperty()] [bool] $Enforce
     [DscProperty()] [Ensure] $Ensure

@@ -43,7 +43,7 @@ function Get-Resource
 
         [Parameter(Mandatory)]
         [guid[]]
-        $MonitoringObject,
+        $MonitoringObjectGuid,
 
         [Parameter(Mandatory)]
         [datetime]
@@ -119,7 +119,7 @@ function Set-Resource
 
         [Parameter(Mandatory)]
         [guid[]]
-        $MonitoringObject,
+        $MonitoringObjectGuid,
 
         [Parameter(Mandatory)]
         [datetime]
@@ -187,7 +187,7 @@ function Test-Resource
 
         [Parameter(Mandatory)]
         [guid[]]
-        $MonitoringObject,
+        $MonitoringObjectGuid,
 
         [Parameter(Mandatory)]
         [datetime]
@@ -235,7 +235,7 @@ function Test-Resource
 class ScomMaintenanceSchedule
 {
     [DscProperty(Key)] [string] $Name
-    [DscProperty(Mandatory)] [guid[]] $MonitoringObject
+    [DscProperty(Mandatory)] [string[]] $MonitoringObjectGuid
     [DscProperty(Mandatory)] [datetime] $ActiveStartTime
     [DscProperty(Mandatory)] [uint32] $Duration
     [DscProperty(Mandatory)] [MaintenanceModeReason] $ReasonCode
