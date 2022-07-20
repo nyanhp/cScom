@@ -49,6 +49,11 @@ function Test-cScomInstallationStatus
 
     if ($ScomComponent.Role -eq [Role]::ReportServer)
     {
-        return $true
+        if (Get-Command -Name Get-Package -ErrorAction SilentlyContinue)
+        {
+            return [bool](Get-Package -Name 'System Center Operations Manager Reporting Server' -ProviderName msi -ErrorAction SilentlyContinue)
+        }
+
+        return (Test-Path -Path (Join-Path -Path $ScomComponent.InstallLocation -ChildPath Reporting))
     }
 }

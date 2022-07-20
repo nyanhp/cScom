@@ -16,8 +16,6 @@ class Reason
 
 function Get-Resource
 {
-    [OutputType([hashtable])]
-    [CmdletBinding()]
     param
     (
         [Parameter(Mandatory)]
@@ -94,7 +92,6 @@ function Get-Resource
 
 function Set-Resource
 {
-    [CmdletBinding()]
     param
     (
         [Parameter(Mandatory)]
@@ -170,8 +167,6 @@ function Set-Resource
 
 function Test-Resource
 {
-    [OutputType([bool])]
-    [CmdletBinding()]
     param
     (
         [Parameter(Mandatory)]
