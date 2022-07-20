@@ -46,7 +46,205 @@ enum MaintenanceModeReason
     SecurityIssue
     LossOfNetworkConnectivity
 }
-   
+
+function Get-Resource
+{
+    param
+    (
+        [Parameter(Mandatory)]
+        [string]
+        $Name,
+
+        [Parameter(Mandatory)]
+        [guid[]]
+        $MonitoringObject,
+
+        [Parameter(Mandatory)]
+        [datetime]
+        $ActiveStartTime,
+
+        [Parameter(Mandatory)]
+        [uint32]
+        $Duration,
+
+        [Parameter(Mandatory)]
+        [MaintenanceModeReason]
+        $ReasonCode,
+
+        [Parameter(Mandatory)]
+        [uint32]
+        $FreqType,
+
+        [bool]
+        $Recursive,
+
+        [Ensure]
+        $Ensure,
+
+        [datetime]
+        $ActiveEndDate,
+
+        [string]
+        $Comments,
+
+        [uint32]
+        $FreqInterval,
+
+        [uint32]
+        $FreqRecurrenceFactor,
+
+        [uint32]
+        $FreqRelativeInterval
+    )
+
+    $schedule = Get-SCOMMaintenanceScheduleList | Where-Object -Property Name -eq $Name | Get-SCOMMaintenanceSchedule
+    $reasonList = @()
+
+    if ($Ensure -eq 'Absent' -and $null -ne $schedule)
+    {
+        $reasonList += @{
+            Code   = 'ScomMaintenanceSchedule:ScomMaintenanceSchedule:SchedulePresent'
+            Phrase = "Maintenance schedule $($Name) is present, should be absent. Schedule ID $($schedule.Id)"
+        }
+    }
+
+    if ($Ensure -eq 'Present' -and $null -eq $schedule)
+    {
+        $reasonList += @{
+            Code   = 'ScomMaintenanceSchedule:ScomMaintenanceSchedule:ScheduleAbsent'
+            Phrase = "Maintenance schedule $($Name) is absent, should be present."
+        }
+    }
+
+    # Check other properties
+
+    return @{
+        Reasons = $reasonList
+    }
+}
+
+function Set-Resource
+{
+    param
+    (
+        [Parameter(Mandatory)]
+        [string]
+        $Name,
+
+        [Parameter(Mandatory)]
+        [guid[]]
+        $MonitoringObject,
+
+        [Parameter(Mandatory)]
+        [datetime]
+        $ActiveStartTime,
+
+        [Parameter(Mandatory)]
+        [uint32]
+        $Duration,
+
+        [Parameter(Mandatory)]
+        [MaintenanceModeReason]
+        $ReasonCode,
+
+        [Parameter(Mandatory)]
+        [uint32]
+        $FreqType,
+
+        [bool]
+        $Recursive,
+
+        [Ensure]
+        $Ensure,
+
+        [datetime]
+        $ActiveEndDate,
+
+        [string]
+        $Comments,
+
+        [uint32]
+        $FreqInterval,
+
+        [uint32]
+        $FreqRecurrenceFactor,
+
+        [uint32]
+        $FreqRelativeInterval
+    )
+    
+    $schedule = Get-SCOMMaintenanceScheduleList | Where-Object -Property Name -eq $this.Name | Get-SCOMMaintenanceSchedule
+
+    if ($this.Ensure -eq 'Present' -and $schedule)
+    {
+        $parameters = Sync-Parameter -Parameters $this.GetConfigurableDscProperties() -Command (Get-Command -Name Edit-SCOMMaintenanceSchedule)
+        Edit-ScomMaintenanceSchedule @parameters -Id $schedule.Id
+    }
+    elseif ($this.Ensure -eq 'Present')
+    {
+            
+        $parameters = Sync-Parameter -Parameters $this.GetConfigurableDscProperties() -Command (Get-Command -Name New-SCOMMaintenanceSchedule)
+    }
+    else
+    {
+        $schedule | Remove-ScomMaintenanceSchedule -Confirm:$false
+    }
+}
+
+function Test-Resource
+{
+    param
+    (
+        [Parameter(Mandatory)]
+        [string]
+        $Name,
+
+        [Parameter(Mandatory)]
+        [guid[]]
+        $MonitoringObject,
+
+        [Parameter(Mandatory)]
+        [datetime]
+        $ActiveStartTime,
+
+        [Parameter(Mandatory)]
+        [uint32]
+        $Duration,
+
+        [Parameter(Mandatory)]
+        [MaintenanceModeReason]
+        $ReasonCode,
+
+        [Parameter(Mandatory)]
+        [uint32]
+        $FreqType,
+
+        [bool]
+        $Recursive,
+
+        [Ensure]
+        $Ensure,
+
+        [datetime]
+        $ActiveEndDate,
+
+        [string]
+        $Comments,
+
+        [uint32]
+        $FreqInterval,
+
+        [uint32]
+        $FreqRecurrenceFactor,
+
+        [uint32]
+        $FreqRelativeInterval
+    )
+    
+    $currentStatus = Get-Resource @PSBoundParameters
+    $currentStatus.Reasons.Count -eq 0
+}
+
 [DscResource()]
 class ScomMaintenanceSchedule
 {
@@ -73,56 +271,20 @@ class ScomMaintenanceSchedule
 
     [ScomMaintenanceSchedule] Get()
     {
-        $schedule = Get-SCOMMaintenanceScheduleList | Where-Object -Property Name -eq $this.Name | Get-SCOMMaintenanceSchedule
-        $reasonList = @()
-
-        if ($this.Ensure -eq 'Absent' -and $null -ne $schedule)
-        {
-            $reasonList += @{
-                Code   = 'ScomMaintenanceSchedule:ScomMaintenanceSchedule:SchedulePresent'
-                Phrase = "Maintenance schedule $($this.Name) is present, should be absent. Schedule ID $($schedule.Id)"
-            }
-        }
-
-        if ($this.Ensure -eq 'Present' -and $null -eq $schedule)
-        {
-            $reasonList += @{
-                Code   = 'ScomMaintenanceSchedule:ScomMaintenanceSchedule:ScheduleAbsent'
-                Phrase = "Maintenance schedule $($this.Name) is absent, should be present."
-            }
-        }
-
-        # Check other properties
-
-        return @{
-            Reasons = $reasonList
-        }
+        $parameter = Sync-Parameter -Command (Get-Command Get-Resource) -Parameters $this.GetConfigurableDscProperties()
+        return (Get-Resource @parameter)        
     }
 
     [void] Set()
     {
-        $schedule = Get-SCOMMaintenanceScheduleList | Where-Object -Property Name -eq $this.Name | Get-SCOMMaintenanceSchedule
-
-        if ($this.Ensure -eq 'Present' -and $schedule)
-        {
-            $parameters = Sync-Parameter -Parameters $this.GetConfigurableDscProperties() -Command (Get-Command -Name Edit-SCOMMaintenanceSchedule)
-            Edit-ScomMaintenanceSchedule @parameters -Id $schedule.Id
-        }
-        elseif ($this.Ensure -eq 'Present')
-        {
-            
-            $parameters = Sync-Parameter -Parameters $this.GetConfigurableDscProperties() -Command (Get-Command -Name New-SCOMMaintenanceSchedule)
-        }
-        else
-        {
-            $schedule | Remove-ScomMaintenanceSchedule -Confirm:$false
-        }
+        $parameter = Sync-Parameter -Command (Get-Command Set-Resource) -Parameters $this.GetConfigurableDscProperties()
+        Set-Resource @parameter        
     }
 
     [bool] Test()
     {
-        $currentStatus = $this.Get()
-        return ($currentStatus.Reasons.Count -eq 0) # Shrug-Emoji :)
+        $parameter = Sync-Parameter -Command (Get-Command Test-Resource) -Parameters $this.GetConfigurableDscProperties()
+        Return (Test-Resource @parameter)
     }
 
     [Hashtable] GetConfigurableDscProperties()
@@ -133,15 +295,15 @@ class ScomMaintenanceSchedule
         # The intent is to simplify splatting to functions
         # Source: https://gist.github.com/mgreenegit/e3a9b4e136fc2d510cf87e20390daa44
         $DscProperties = @{}
-        foreach ($property in [ScomComponent].GetProperties().Name)
+        foreach ($property in [ScomMaintenanceSchedule].GetProperties().Name)
         {
             # Checks if "NotConfigurable" attribute is set
-            $notConfigurable = [ScomComponent].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
+            $notConfigurable = [ScomMaintenanceSchedule].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
             if (!$notConfigurable)
             {
                 $value = $this.$property
                 # Gets the list of valid values from the ValidateSet attribute
-                $validateSet = [ScomComponent].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
+                $validateSet = [ScomMaintenanceSchedule].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
                 if ($validateSet)
                 {
                     # Workaround for boolean types

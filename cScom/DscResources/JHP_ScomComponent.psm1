@@ -23,6 +23,318 @@ enum Role
     NativeConsole
 }
 
+function Get-Resource
+{
+    param
+    (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
+        [string]
+        $IsSingleInstance,
+        [Parameter(Mandatory)]
+        [Role] $Role,
+        [Parameter(Mandatory)]
+        [string]
+        $SourcePath,
+        [System.String]
+        $ManagementServer,
+        [System.String]
+        $ManagementGroupName,
+        [System.Management.Automation.PSCredential]
+        $DataReader,
+        [System.Management.Automation.PSCredential]
+        $DataWriter,
+        [System.String]
+        $SqlServerInstance,
+        [uint16]
+        $SqlInstancePort,
+        [uint16]
+        $DwSqlInstancePort,
+        [System.String]
+        $DwSqlServerInstance,
+        [Ensure]
+        $Ensure,
+        [System.String]
+        $ProductKey,
+        [System.String]
+        $InstallLocation,
+        [System.UInt16]
+        $ManagementServicePort,
+        [System.Management.Automation.PSCredential]
+        $ActionAccount,
+        [System.Management.Automation.PSCredential]
+        $DASAccount,
+        [System.String]
+        $DatabaseName,
+        [System.String]
+        $DwDatabaseName,
+        [string]
+        $WebSiteName,
+        [string]
+        $WebConsoleAuthorizationMode,
+        [bool]
+        $WebConsoleUseSSL,
+        [bool]
+        $UseMicrosoftUpdate,
+        [string]
+        $SRSInstance
+    )
+
+    $status = Test-cScomInstallationStatus -ScomComponent $PSBoundParameters
+
+    $returnTable = @{
+        IsSingleInstance            = $IsSingleInstance
+        Role                        = $Role
+        SourcePath                  = $SourcePath
+        ManagementServer            = $ManagementServer
+        ManagementGroupName         = $ManagementGroupName
+        DataReader                  = $DataReader
+        DataWriter                  = $DataWriter
+        SqlServerInstance           = $SqlServerInstance
+        SqlInstancePort             = $SqlInstancePort
+        DwSqlInstancePort           = $DwSqlInstancePort
+        DwSqlServerInstance         = $DwSqlServerInstance
+        Ensure                      = $Ensure
+        ProductKey                  = $ProductKey
+        InstallLocation             = $InstallLocation
+        ManagementServicePort       = $ManagementServicePort
+        ActionAccount               = $ActionAccount
+        DASAccount                  = $DASAccount
+        DatabaseName                = $DatabaseName
+        DwDatabaseName              = $DwDatabaseName
+        WebSiteName                 = $WebSiteName
+        WebConsoleAuthorizationMode = $WebConsoleAuthorizationMode
+        WebConsoleUseSSL            = $WebConsoleUseSSL
+        UseMicrosoftUpdate          = $UseMicrosoftUpdate
+        SRSInstance                 = $SRSInstance
+    }
+
+    if (-not $status -and $Ensure -eq 'Present')
+    {
+        $returnTable.Reasons = @(
+            [Reason]@{
+                Code   = 'ScomComponent:ScomComponent:ProductNotInstalled'
+                Phrase = "SCOM component $($Role) is not installed, but it should be."
+            }
+        )
+    }
+
+    if ($status -and $Ensure -eq 'Absent')
+    {
+        $returnTable.Reasons = @(
+            [Reason]@{
+                Code   = 'ScomComponent:ScomComponent:ProductInstalled'
+                Phrase = "SCOM component $($Role) is installed, but it should not be."
+            }
+        )
+    }
+
+    return $returnTable
+}
+
+function Set-Resource
+{
+    param
+    (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
+        [string]
+        $IsSingleInstance,
+        [Parameter(Mandatory)]
+        [Role] $Role,
+        [Parameter(Mandatory)]
+        [string]
+        $SourcePath,
+        [System.String]
+        $ManagementServer,
+        [System.String]
+        $ManagementGroupName,
+        [System.Management.Automation.PSCredential]
+        $DataReader,
+        [System.Management.Automation.PSCredential]
+        $DataWriter,
+        [System.String]
+        $SqlServerInstance,
+        [uint16]
+        $SqlInstancePort,
+        [uint16]
+        $DwSqlInstancePort,
+        [System.String]
+        $DwSqlServerInstance,
+        [Ensure]
+        $Ensure,
+        [System.String]
+        $ProductKey,
+        [System.String]
+        $InstallLocation,
+        [System.UInt16]
+        $ManagementServicePort,
+        [System.Management.Automation.PSCredential]
+        $ActionAccount,
+        [System.Management.Automation.PSCredential]
+        $DASAccount,
+        [System.String]
+        $DatabaseName,
+        [System.String]
+        $DwDatabaseName,
+        [string]
+        $WebSiteName,
+        [string]
+        $WebConsoleAuthorizationMode,
+        [bool]
+        $WebConsoleUseSSL,
+        [bool]
+        $UseMicrosoftUpdate,
+        [string]
+        $SRSInstance
+    )
+    $parameters = @{
+        Role = $Role
+    }
+
+    switch ($Role)
+    {
+        'FirstManagementServer'
+        {
+            $parameters['DwDatabaseName'] = $DwDatabaseName
+            $parameters['DwSqlInstancePort'] = $DwSqlInstancePort
+            $parameters['DwSqlServerInstance'] = $DwSqlServerInstance
+            $parameters['ManagementGroupName'] = $ManagementGroupName
+            $parameters['ActionAccountPassword'] = $ActionAccount.GetNetworkCredential().Password
+            $parameters['ActionAccountUser'] = $ActionAccount.UserName
+            $parameters['DASAccountPassword'] = $DASAccount.GetNetworkCredential().Password
+            $parameters['DASAccountUser'] = $DASAccount.UserName
+            $parameters['DatabaseName'] = $DatabaseName
+            $parameters['DataReaderPassword'] = $DataReader.GetNetworkCredential().Password
+            $parameters['DataReaderUser'] = $DataReader.UserName
+            $parameters['DataWriterPassword'] = $DataWriter.GetNetworkCredential().Password
+            $parameters['DataWriterUser'] = $DataWriter.UserName
+            $parameters['InstallLocation'] = $InstallLocation
+            $parameters['ManagementServicePort'] = $ManagementServicePort
+            $parameters['SqlInstancePort'] = $SqlInstancePort
+            $parameters['SqlServerInstance'] = $SqlServerInstance
+        }
+        'AdditionalManagementServer'
+        {
+            $parameters['ActionAccountPassword'] = $ActionAccount.GetNetworkCredential().Password
+            $parameters['ActionAccountUser'] = $ActionAccount.UserName
+            $parameters['DASAccountPassword'] = $DASAccount.GetNetworkCredential().Password
+            $parameters['DASAccountUser'] = $DASAccount.UserName
+            $parameters['DatabaseName'] = $DatabaseName
+            $parameters['DataReaderPassword'] = $DataReader.GetNetworkCredential().Password
+            $parameters['DataReaderUser'] = $DataReader.UserName
+            $parameters['DataWriterPassword'] = $DataWriter.GetNetworkCredential().Password
+            $parameters['DataWriterUser'] = $DataWriter.UserName
+            $parameters['InstallLocation'] = $InstallLocation
+            $parameters['ManagementServicePort'] = $ManagementServicePort
+            $parameters['SqlInstancePort'] = $SqlInstancePort
+            $parameters['SqlServerInstance'] = $SqlServerInstance
+        }
+        'ReportServer'
+        {
+            $parameters['ManagementServer'] = $ManagementServer
+            $parameters['SRSInstance'] = $SRSInstance
+            $parameters['DataReaderUser'] = $DataReader.UserName
+            $parameters['DataReaderPassword'] = $DataReader.GetNetworkCredential().Password
+        }
+        'WebConsole'
+        {
+            $parameters['WebSiteName'] = $WebSiteName
+            $parameters['ManagementServer'] = $ManagementServer
+            $parameters['WebConsoleAuthorizationMode'] = $WebConsoleAuthorizationMode
+        }
+        'NativeConsole'
+        {
+            $parameters['InstallLocation'] = $InstallLocation
+        }
+    }
+
+    $commandline = Get-cScomParameter @parameters -Uninstall:$($Ensure -eq 'Absent')
+    $setupEchse = Get-ChildItem -Path $SourcePath -Filter setup.exe
+
+    if (-not $setupEchse)
+    {
+        Write-Error -Message "Path $($SourcePath) is missing setup.exe"
+        return
+    }
+
+    $obfuscatedCmdline = $commandline
+    foreach ($pwdKey in $parameters.GetEnumerator())
+    {
+        if ($pwdKey.Key -notlike '*Password') { continue }
+        $obfuscatedCmdline = $obfuscatedCmdline.Replace($pwdKey.Value, '******')
+    }
+    Write-Verbose -Message "Starting setup of SCOM $($Role): $($setupEchse.FullName) $commandLine"
+    $installation = Start-Process -Wait -PassThru -FilePath $setupEchse.FullName -ArgumentList $commandLine -WindowStyle Hidden
+
+    if ($installation.ExitCode -eq 3010) { $global:DSCMachineStatus = 1; return }
+
+    if ($installation.ExitCode -ne 0)
+    {
+        Write-Error -Message "Installation ran into an error. Exit code was $($installation.ExitCode)"
+    }
+}
+
+function Test-Resource
+{
+    param
+    (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
+        [string]
+        $IsSingleInstance,
+        [Parameter(Mandatory)]
+        [Role] $Role,
+        [Parameter(Mandatory)]
+        [string]
+        $SourcePath,
+        [System.String]
+        $ManagementServer,
+        [System.String]
+        $ManagementGroupName,
+        [System.Management.Automation.PSCredential]
+        $DataReader,
+        [System.Management.Automation.PSCredential]
+        $DataWriter,
+        [System.String]
+        $SqlServerInstance,
+        [uint16]
+        $SqlInstancePort,
+        [uint16]
+        $DwSqlInstancePort,
+        [System.String]
+        $DwSqlServerInstance,
+        [Ensure]
+        $Ensure,
+        [System.String]
+        $ProductKey,
+        [System.String]
+        $InstallLocation,
+        [System.UInt16]
+        $ManagementServicePort,
+        [System.Management.Automation.PSCredential]
+        $ActionAccount,
+        [System.Management.Automation.PSCredential]
+        $DASAccount,
+        [System.String]
+        $DatabaseName,
+        [System.String]
+        $DwDatabaseName,
+        [string]
+        $WebSiteName,
+        [string]
+        $WebConsoleAuthorizationMode,
+        [bool]
+        $WebConsoleUseSSL,
+        [bool]
+        $UseMicrosoftUpdate,
+        [string]
+        $SRSInstance
+    )
+
+    return ($(Get-Resource @PSBoundParameters).Reasons.Count -eq 0)
+}
+
 [DscResource()]
 class ScomComponent
 {
@@ -54,6 +366,7 @@ class ScomComponent
 
     ScomComponent ()
     {
+        $this.IsSingleInstance = 'yes'
         $this.InstallLocation = 'C:\Program Files\Microsoft System Center\Operations Manager'
         $this.Ensure = 'Present'
         $this.DatabaseName = "OperationsManager"
@@ -69,150 +382,20 @@ class ScomComponent
 
     [ScomComponent] Get()
     {
-        $status = Test-cScomInstallationStatus -ScomComponent $this.GetConfigurableDscProperties()
-        $returnTable = @{
-            IsSingleInstance            = $this.IsSingleInstance
-            Role                        = $this.Role
-            SourcePath                  = $this.SourcePath
-            ManagementServer            = $this.ManagementServer
-            ManagementGroupName         = $this.ManagementGroupName
-            DataReader                  = $this.DataReader
-            DataWriter                  = $this.DataWriter
-            SqlServerInstance           = $this.SqlServerInstance
-            SqlInstancePort             = $this.SqlInstancePort
-            DwSqlInstancePort           = $this.DwSqlInstancePort
-            DwSqlServerInstance         = $this.DwSqlServerInstance
-            Ensure                      = $this.Ensure
-            ProductKey                  = $this.ProductKey
-            InstallLocation             = $this.InstallLocation
-            ManagementServicePort       = $this.ManagementServicePort
-            ActionAccount               = $this.ActionAccount
-            DASAccount                  = $this.DASAccount
-            DatabaseName                = $this.DatabaseName
-            DwDatabaseName              = $this.DwDatabaseName
-            WebSiteName                 = $this.WebSiteName
-            WebConsoleAuthorizationMode = $this.WebConsoleAuthorizationMode
-            WebConsoleUseSSL            = $this.WebConsoleUseSSL
-            UseMicrosoftUpdate          = $this.UseMicrosoftUpdate
-            SRSInstance                 = $this.SRSInstance
-        }
-
-        if (-not $status -and $this.Ensure -eq 'Present')
-        {
-            $returnTable.Reasons = @(
-                [Reason]@{
-                    Code   = 'ScomComponent:ScomComponent:ProductNotInstalled'
-                    Phrase = "SCOM component $($this.Role) is not installed, but it should be."
-                }
-            )
-        }
-
-        if ($status -and $this.Ensure -eq 'Absent')
-        {
-            $returnTable.Reasons = @(
-                [Reason]@{
-                    Code   = 'ScomComponent:ScomComponent:ProductInstalled'
-                    Phrase = "SCOM component $($this.Role) is installed, but it should not be."
-                }
-            )
-        }
-
-        return $returnTable
+        $parameter = Sync-Parameter -Command (Get-Command Get-Resource) -Parameters $this.GetConfigurableDscProperties()
+        return (Get-Resource @parameter)        
     }
 
     [void] Set()
     {
-        $parameters = @{
-            Role = $this.Role
-        }
-
-        switch ($this.Role)
-        {
-            'FirstManagementServer'
-            {
-                $parameters['DwDatabaseName'] = $this.DwDatabaseName
-                $parameters['DwSqlInstancePort'] = $this.DwSqlInstancePort
-                $parameters['DwSqlServerInstance'] = $this.DwSqlServerInstance
-                $parameters['ManagementGroupName'] = $this.ManagementGroupName
-                $parameters['ActionAccountPassword'] = $this.ActionAccount.GetNetworkCredential().Password
-                $parameters['ActionAccountUser'] = $this.ActionAccount.UserName
-                $parameters['DASAccountPassword'] = $this.DASAccount.GetNetworkCredential().Password
-                $parameters['DASAccountUser'] = $this.DASAccount.UserName
-                $parameters['DatabaseName'] = $this.DatabaseName
-                $parameters['DataReaderPassword'] = $this.DataReader.GetNetworkCredential().Password
-                $parameters['DataReaderUser'] = $this.DataReader.UserName
-                $parameters['DataWriterPassword'] = $this.DataWriter.GetNetworkCredential().Password
-                $parameters['DataWriterUser'] = $this.DataWriter.UserName
-                $parameters['InstallLocation'] = $this.InstallLocation
-                $parameters['ManagementServicePort'] = $this.ManagementServicePort
-                $parameters['SqlInstancePort'] = $this.SqlInstancePort
-                $parameters['SqlServerInstance'] = $this.SqlServerInstance
-            }
-            'AdditionalManagementServer'
-            {
-                $parameters['ActionAccountPassword'] = $this.ActionAccount.GetNetworkCredential().Password
-                $parameters['ActionAccountUser'] = $this.ActionAccount.UserName
-                $parameters['DASAccountPassword'] = $this.DASAccount.GetNetworkCredential().Password
-                $parameters['DASAccountUser'] = $this.DASAccount.UserName
-                $parameters['DatabaseName'] = $this.DatabaseName
-                $parameters['DataReaderPassword'] = $this.DataReader.GetNetworkCredential().Password
-                $parameters['DataReaderUser'] = $this.DataReader.UserName
-                $parameters['DataWriterPassword'] = $this.DataWriter.GetNetworkCredential().Password
-                $parameters['DataWriterUser'] = $this.DataWriter.UserName
-                $parameters['InstallLocation'] = $this.InstallLocation
-                $parameters['ManagementServicePort'] = $this.ManagementServicePort
-                $parameters['SqlInstancePort'] = $this.SqlInstancePort
-                $parameters['SqlServerInstance'] = $this.SqlServerInstance
-            }
-            'ReportServer'
-            {
-                $parameters['ManagementServer'] = $this.ManagementServer
-                $parameters['SRSInstance'] = $this.SRSInstance
-                $parameters['DataReaderUser'] = $this.DataReader.UserName
-                $parameters['DataReaderPassword'] = $this.DataReader.GetNetworkCredential().Password
-            }
-            'WebConsole'
-            {
-                $parameters['WebSiteName'] = $this.WebSiteName
-                $parameters['ManagementServer'] = $this.ManagementServer
-                $parameters['WebConsoleAuthorizationMode'] = $this.WebConsoleAuthorizationMode
-            }
-            'NativeConsole'
-            {
-                $parameters['InstallLocation'] = $this.InstallLocation
-            }
-        }
-
-        $commandline = Get-cScomParameter @parameters -Uninstall:$($this.Ensure -eq 'Absent')
-        $setupEchse = Get-ChildItem -Path $this.SourcePath -Filter setup.exe
-
-        if (-not $setupEchse)
-        {
-            Write-Error -Message "Path $($this.SourcePath) is missing setup.exe"
-            return
-        }
-
-        $obfuscatedCmdline = $commandline
-        foreach ($pwdKey in $parameters.GetEnumerator())
-        {
-            if ($pwdKey.Key -notlike '*Password') { continue }
-            $obfuscatedCmdline = $obfuscatedCmdline.Replace($pwdKey.Value, '******')
-        }
-        Write-Verbose -Message "Starting setup of SCOM $($this.Role): $($setupEchse.FullName) $commandLine"
-        $installation = Start-Process -Wait -PassThru -FilePath $setupEchse.FullName -ArgumentList $commandLine -WindowStyle Hidden
-
-        if ($installation.ExitCode -eq 3010) { $global:DSCMachineStatus = 1; return }
-
-        if ($installation.ExitCode -ne 0)
-        {
-            Write-Error -Message "Installation ran into an error. Exit code was $($installation.ExitCode)"
-        }
+        $parameter = Sync-Parameter -Command (Get-Command Set-Resource) -Parameters $this.GetConfigurableDscProperties()
+        Set-Resource @parameter        
     }
 
     [bool] Test()
     {
-        $currentStatus = $this.Get()
-        return ($currentStatus.Reasons.Count -eq 0) # Shrug-Emoji :)
+        $parameter = Sync-Parameter -Command (Get-Command Test-Resource) -Parameters $this.GetConfigurableDscProperties()
+        return (Test-Resource @parameter)
     }
 
     [Hashtable] GetConfigurableDscProperties()
