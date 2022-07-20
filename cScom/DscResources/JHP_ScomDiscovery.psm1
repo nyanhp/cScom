@@ -1,10 +1,4 @@
-﻿<#
-$MP = Get-SCOMManagementPack -DisplayName "My SQL MP Customization" | Where-Object {$_.Sealed -eq $False}
-$Class = Get-SCOMClass -DisplayName "SQL DB Engine"
-$Discovery = Get-SCOMDiscovery -DisplayName *rule*
-Enable-SCOMDiscovery -Class $Class -ManagementPack $MP -Discovery $Discovery -Enforce
-#>
-enum Ensure
+﻿enum Ensure
 {
     Present
     Absent

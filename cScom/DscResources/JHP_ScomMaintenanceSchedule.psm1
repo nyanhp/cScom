@@ -1,18 +1,4 @@
-﻿<#New-SCOMMaintenanceSchedule
-   [-Name] <String>
-   [-Recursive]
-   [-Enabled]
-   [-MonitoringObjects] <Guid[]>
-   [-ActiveStartTime] <DateTime>
-   [[-ActiveEndDate] <DateTime>]
-   [-Duration] <Int32>
-   [-ReasonCode] <MaintenanceModeReason>
-   [[-Comments] <String>]
-   [-FreqType] <Int32>
-   [[-FreqInterval] <Int32>]
-   [[-FreqRecurrenceFactor] <Int32>]
-   [[-FreqRelativeInterval] <Int32>] #>
-enum Ensure
+﻿enum Ensure
 {
     Present
     Absent
