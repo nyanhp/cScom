@@ -42,7 +42,7 @@ function Get-Resource
         $Name,
 
         [Parameter(Mandatory)]
-        [guid[]]
+        [string[]]
         $MonitoringObjectGuid,
 
         [Parameter(Mandatory)]
@@ -118,7 +118,7 @@ function Set-Resource
         $Name,
 
         [Parameter(Mandatory)]
-        [guid[]]
+        [string[]]
         $MonitoringObjectGuid,
 
         [Parameter(Mandatory)]
@@ -170,6 +170,7 @@ function Set-Resource
     {
             
         $parameters = Sync-Parameter -Parameters $this.GetConfigurableDscProperties() -Command (Get-Command -Name New-SCOMMaintenanceSchedule)
+        New-SCOMMaintenanceSchedule @parameters
     }
     else
     {
@@ -186,7 +187,7 @@ function Test-Resource
         $Name,
 
         [Parameter(Mandatory)]
-        [guid[]]
+        [string[]]
         $MonitoringObjectGuid,
 
         [Parameter(Mandatory)]
