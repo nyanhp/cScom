@@ -264,7 +264,7 @@ function Set-Resource
         if ($pwdKey.Key -notlike '*Password') { continue }
         $obfuscatedCmdline = $obfuscatedCmdline.Replace($pwdKey.Value, '******')
     }
-    Write-Verbose -Message "Starting setup of SCOM $($Role): $($setupEchse.FullName) $commandLine"
+    Write-Verbose -Message "Starting setup of SCOM $($Role): $($setupEchse.FullName) $obfuscatedCmdline"
     $installation = Start-Process -Wait -PassThru -FilePath $setupEchse.FullName -ArgumentList $commandLine -WindowStyle Hidden
 
     if ($installation.ExitCode -eq 3010) { $global:DSCMachineStatus = 1; return }
