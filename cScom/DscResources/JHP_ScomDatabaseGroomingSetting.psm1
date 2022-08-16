@@ -20,6 +20,8 @@ function Get-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [byte] $AlertDaysToKeep,
@@ -71,6 +73,8 @@ function Test-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [byte] $AlertDaysToKeep,
@@ -92,6 +96,8 @@ function Set-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [byte] $AlertDaysToKeep,

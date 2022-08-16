@@ -20,6 +20,8 @@ function Get-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [int]
@@ -61,6 +63,8 @@ function Test-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [int]
@@ -77,6 +81,8 @@ function Set-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [int]

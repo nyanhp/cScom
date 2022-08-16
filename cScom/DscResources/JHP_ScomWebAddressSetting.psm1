@@ -20,6 +20,8 @@ function Get-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [string]
@@ -31,7 +33,7 @@ function Get-Resource
     $reasonList = @()
     $setting = Get-ScomWebAddressSetting
 
-    if ($setting.WebConsoleUrl -ne $WebConsoleUrl)
+    if (-not [string]::IsNullOrWhiteSpace($WebConsoleUrl) -and $setting.WebConsoleUrl -ne $WebConsoleUrl)
     {
         $reasonList += @{
             Code   = 'ScomWebAddressSetting:ScomWebAddressSetting:WrongWebUrlSetting'
@@ -39,7 +41,7 @@ function Get-Resource
         }
     }
 
-    if ($setting.OnlineProductKnowledgeUrl -ne $OnlineProductKnowledgeUrl)
+    if (-not [string]::IsNullOrWhiteSpace($OnlineProductKnowledgeUrl) -and $setting.OnlineProductKnowledgeUrl -ne $OnlineProductKnowledgeUrl)
     {
         $reasonList += @{
             Code   = 'ScomWebAddressSetting:ScomWebAddressSetting:WrongKnowledgeUrletting'
@@ -61,6 +63,8 @@ function Test-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [string]
@@ -77,6 +81,8 @@ function Set-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [string]

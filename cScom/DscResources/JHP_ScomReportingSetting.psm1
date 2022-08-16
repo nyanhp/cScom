@@ -28,6 +28,7 @@ function Get-Resource
     param
     (
         [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [Parameter(Mandatory)]
@@ -60,6 +61,7 @@ function Test-Resource
     param
     (
         [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [Parameter(Mandatory)]
@@ -76,6 +78,7 @@ function Set-Resource
     param
     (
         [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [Parameter(Mandatory)]

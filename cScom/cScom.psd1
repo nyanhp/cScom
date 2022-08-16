@@ -61,11 +61,18 @@
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
     NestedModules        = @(
-        'DscResources\JHP_ScomComponent.psd1'
-        'DscResources\JHP_ScomManagementPack.psd1'
-        'DscResources\JHP_ScomDiscovery.psd1'
-        'DscResources\JHP_ScomMaintenanceSchedule.psd1'
         'DscResources\JHP_ScomAgentApprovalSetting.psd1'
+        'DscResources\JHP_ScomAlertResolutionSetting.psd1'
+        'DscResources\JHP_ScomComponent.psd1'
+        'DscResources\JHP_ScomDatabaseGroomingSetting.psd1'
+        'DscResources\JHP_ScomDataWarehouseSetting.psd1'
+        'DscResources\JHP_ScomDiscovery.psd1'
+        'DscResources\JHP_ScomErrorReportingSetting.psd1'
+        'DscResources\JHP_ScomHeartbeatSetting.psd1'
+        'DscResources\JHP_ScomMaintenanceSchedule.psd1'
+        'DscResources\JHP_ScomManagementPack.psd1'
+        'DscResources\JHP_ScomReportingSetting.psd1'
+        'DscResources\JHP_ScomWebAddressSetting.psd1'
     )
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.

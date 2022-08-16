@@ -20,26 +20,28 @@ function Get-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [int]
         $MissingHeartbeatThreshold,
-        [timespan]
-        $HeartbeatInterval
+        [int]
+        $HeartbeatIntervalSeconds
     )
 
     $reasonList = @()
     $setting = Get-ScomHeartbeatSetting
 
-    if ($setting.AgentHeartbeatInterval -ne $HeartbeatInterval)
+    if ($HeartbeatIntervalSeconds -gt 0 -and $setting.AgentHeartbeatInterval -ne $HeartbeatIntervalSeconds)
     {
         $reasonList += @{
             Code   = 'ScomHeartbeatSetting:ScomHeartbeatSetting:WrongHeartbeatIntervalSetting'
-            Phrase = "Heartbeat Interval setting is $($setting.AgentHeartbeatInterval) but should be $HeartbeatInterval"
+            Phrase = "Heartbeat Interval setting is $($setting.AgentHeartbeatInterval) but should be $HeartbeatIntervalSeconds"
         }
     }
 
-    if ($setting.MissingHeartbeatThreshold -ne $MissingHeartbeatThreshold)
+    if ($MissingHeartbeatThreshold -gt 0 -and $setting.MissingHeartbeatThreshold -ne $MissingHeartbeatThreshold)
     {
         $reasonList += @{
             Code   = 'ScomHeartbeatSetting:ScomHeartbeatSetting:WrongThresholdSetting'
@@ -50,7 +52,7 @@ function Get-Resource
     return @{
         IsSingleInstance          = $IsSingleInstance
         MissingHeartbeatThreshold = $setting.MissingHeartbeatThreshold
-        HeartbeatInterval         = $setting.AgentHeartbeatInterval
+        HeartbeatIntervalSeconds  = $setting.AgentHeartbeatInterval
         Reasons                   = $reasonList
     }
 }
@@ -61,12 +63,14 @@ function Test-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [int]
         $MissingHeartbeatThreshold,
-        [timespan]
-        $HeartbeatInterval
+        [int]
+        $HeartbeatIntervalSeconds
     )
     
     return ($(Get-Resource @PSBoundParameters).Reasons.Count -eq 0)
@@ -77,12 +81,14 @@ function Set-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
+        [ValidateSet('yes')]
         [System.String]
         $IsSingleInstance,
         [int]
         $MissingHeartbeatThreshold,
-        [timespan]
-        $HeartbeatInterval
+        [int]
+        $HeartbeatIntervalSeconds
     )
 
     $parameters = @{
@@ -90,7 +96,7 @@ function Set-Resource
         Confirm     = $false
     }
 
-    if ($PSBoundParameters.Contains('MissingHeartbeatThreshold')) { $parameters['MissingHeartbeatThreshold'] = $MissingHeartbeatThreshold }
+    if ($PSBoundParameters.Contains('HeartbeatIntervalSeconds')) { $parameters['MissingHeartbeatThreshold'] = New-TimeSpan -Seconds $HeartbeatIntervalSeconds }
     if ($PSBoundParameters.Contains('HeartbeatInterval')) { $parameters['HeartbeatInterval'] = $HeartbeatInterval }
 
     Set-ScomHeartbeatSetting @parameters
@@ -101,7 +107,7 @@ class ScomHeartbeatSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty()] [int] $MissingHeartbeatThreshold
-    [DscProperty()] [timespan] $HeartbeatInterval
+    [DscProperty()] [int] $HeartbeatIntervalSeconds
     [DscProperty(NotConfigurable)] [Reason[]] $Reasons
 
     [ScomHeartbeatSetting] Get()
