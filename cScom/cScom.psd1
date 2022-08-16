@@ -91,6 +91,13 @@
         'ScomDiscovery'
         'ScomMaintenanceSchedule'
         'ScomAgentApprovalSetting'
+        'ScomAlertResolutionSetting'
+        'ScomDatabaseGroomingSetting'
+        'ScomDataWarehouseSetting'
+        'ScomErrorReportingSetting'
+        'ScomHeartbeatSetting'
+        'ScomReportingSetting'
+        'ScomWebAddressSetting'
     )
 
     # List of all modules packaged with this module

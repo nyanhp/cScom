@@ -1,4 +1,4 @@
-﻿enum Ensure
+enum Ensure
 {
     Present
     Absent
@@ -14,13 +14,6 @@ class Reason
     [string] $Phrase
 }
 
-enum ApprovalType
-{
-    Pending
-    AutoReject
-    AutoApprove
-}
-
 function Get-Resource
 {
     [OutputType([Hashtable])]
@@ -29,25 +22,36 @@ function Get-Resource
     (
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [int]
+        $MissingHeartbeatThreshold,
+        [timespan]
+        $HeartbeatInterval
     )
 
     $reasonList = @()
-    $setting = (Get-ScomAgentApprovalSetting).AgentApprovalSetting
+    $setting = Get-ScomHeartbeatSetting
 
-    if ($setting -ne $ApprovalType)
+    if ($setting.AgentHeartbeatInterval -ne $HeartbeatInterval)
     {
         $reasonList += @{
-            Code   = 'ScomAgentApprovalSetting:ScomAgentApprovalSetting:WrongApprovalSetting'
-            Phrase = "Approval setting is $setting but should be $ApprovalType"
+            Code   = 'ScomHeartbeatSetting:ScomHeartbeatSetting:WrongHeartbeatIntervalSetting'
+            Phrase = "Heartbeat Interval setting is $($setting.AgentHeartbeatInterval) but should be $HeartbeatInterval"
+        }
+    }
+
+    if ($setting.MissingHeartbeatThreshold -ne $MissingHeartbeatThreshold)
+    {
+        $reasonList += @{
+            Code   = 'ScomHeartbeatSetting:ScomHeartbeatSetting:WrongThresholdSetting'
+            Phrase = "Missing Heartbeat Threshold setting is $($setting.MissingHeartbeatThreshold) but should be $MissingHeartbeatThreshold"
         }
     }
 
     return @{
-        IsSingleInstance = $IsSingleInstance
-        ApprovalType     = $setting
-        Reasons          = $reasonList
+        IsSingleInstance          = $IsSingleInstance
+        MissingHeartbeatThreshold = $setting.MissingHeartbeatThreshold
+        HeartbeatInterval         = $setting.AgentHeartbeatInterval
+        Reasons                   = $reasonList
     }
 }
 
@@ -59,8 +63,10 @@ function Test-Resource
     (
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [int]
+        $MissingHeartbeatThreshold,
+        [timespan]
+        $HeartbeatInterval
     )
     
     return ($(Get-Resource @PSBoundParameters).Reasons.Count -eq 0)
@@ -73,27 +79,32 @@ function Set-Resource
     (
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [int]
+        $MissingHeartbeatThreshold,
+        [timespan]
+        $HeartbeatInterval
     )
 
     $parameters = @{
-        ErrorAction   = 'Stop'
-        $ApprovalType = $true
-        Confirm       = $false
+        ErrorAction = 'Stop'
+        Confirm     = $false
     }
 
-    Set-ScomAgentApprovalSetting @parameters
+    if ($PSBoundParameters.Contains('MissingHeartbeatThreshold')) { $parameters['MissingHeartbeatThreshold'] = $MissingHeartbeatThreshold }
+    if ($PSBoundParameters.Contains('HeartbeatInterval')) { $parameters['HeartbeatInterval'] = $HeartbeatInterval }
+
+    Set-ScomHeartbeatSetting @parameters
 }
 
 [DscResource()]
-class ScomAgentApprovalSetting
+class ScomHeartbeatSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
-    [DscProperty(Mandatory)] [ApprovalType] $ApprovalType
+    [DscProperty()] [int] $MissingHeartbeatThreshold
+    [DscProperty()] [timespan] $HeartbeatInterval
     [DscProperty(NotConfigurable)] [Reason[]] $Reasons
 
-    [ScomAgentApprovalSetting] Get()
+    [ScomHeartbeatSetting] Get()
     {
         $parameter = Sync-Parameter -Command (Get-Command Get-Resource) -Parameters $this.GetConfigurableDscProperties()
         return (Get-Resource @parameter)        
@@ -119,15 +130,15 @@ class ScomAgentApprovalSetting
         # The intent is to simplify splatting to functions
         # Source: https://gist.github.com/mgreenegit/e3a9b4e136fc2d510cf87e20390daa44
         $DscProperties = @{}
-        foreach ($property in [ScomAgentApprovalSetting].GetProperties().Name)
+        foreach ($property in [ScomHeartbeatSetting].GetProperties().Name)
         {
             # Checks if "NotConfigurable" attribute is set
-            $notConfigurable = [ScomAgentApprovalSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
+            $notConfigurable = [ScomHeartbeatSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
             if (!$notConfigurable)
             {
                 $value = $this.$property
                 # Gets the list of valid values from the ValidateSet attribute
-                $validateSet = [ScomAgentApprovalSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
+                $validateSet = [ScomHeartbeatSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
                 if ($validateSet)
                 {
                     # Workaround for boolean types

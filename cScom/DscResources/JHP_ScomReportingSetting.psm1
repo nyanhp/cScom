@@ -1,4 +1,4 @@
-﻿enum Ensure
+enum Ensure
 {
     Present
     Absent
@@ -27,27 +27,29 @@ function Get-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [Parameter(Mandatory)]
+        [string]
+        $ReportingServerUrl
     )
 
     $reasonList = @()
-    $setting = (Get-ScomAgentApprovalSetting).AgentApprovalSetting
+    $setting = (Get-ScomReportingSetting).ReportingServerUrl
 
-    if ($setting -ne $ApprovalType)
+    if ($setting -ne $ReportingServerUrl)
     {
         $reasonList += @{
-            Code   = 'ScomAgentApprovalSetting:ScomAgentApprovalSetting:WrongApprovalSetting'
-            Phrase = "Approval setting is $setting but should be $ApprovalType"
+            Code   = 'ScomReportingSetting:ScomReportingSetting:WrongReportingServerUrlSetting'
+            Phrase = "Reporting Server Url setting is $setting but should be $ReportingServerUrl"
         }
     }
 
     return @{
-        IsSingleInstance = $IsSingleInstance
-        ApprovalType     = $setting
-        Reasons          = $reasonList
+        IsSingleInstance   = $IsSingleInstance
+        ReportingServerUrl = $setting
+        Reasons            = $reasonList
     }
 }
 
@@ -57,10 +59,12 @@ function Test-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [Parameter(Mandatory)]
+        [string]
+        $ReportingServerUrl
     )
     
     return ($(Get-Resource @PSBoundParameters).Reasons.Count -eq 0)
@@ -71,29 +75,31 @@ function Set-Resource
     [CmdletBinding()]
     param
     (
+        [Parameter(Mandatory)]
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [Parameter(Mandatory)]
+        [string]
+        $ReportingServerUrl
     )
 
     $parameters = @{
-        ErrorAction   = 'Stop'
-        $ApprovalType = $true
-        Confirm       = $false
+        ErrorAction        = 'Stop'
+        ReportingServerUrl = $ReportingServerUrl
+        Confirm            = $false
     }
 
-    Set-ScomAgentApprovalSetting @parameters
+    Set-ScomReportingSetting @parameters
 }
 
 [DscResource()]
-class ScomAgentApprovalSetting
+class ScomReportingSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
-    [DscProperty(Mandatory)] [ApprovalType] $ApprovalType
+    [DscProperty(Mandatory)] [string] $ReportingServerUrl
     [DscProperty(NotConfigurable)] [Reason[]] $Reasons
 
-    [ScomAgentApprovalSetting] Get()
+    [ScomReportingSetting] Get()
     {
         $parameter = Sync-Parameter -Command (Get-Command Get-Resource) -Parameters $this.GetConfigurableDscProperties()
         return (Get-Resource @parameter)        
@@ -119,15 +125,15 @@ class ScomAgentApprovalSetting
         # The intent is to simplify splatting to functions
         # Source: https://gist.github.com/mgreenegit/e3a9b4e136fc2d510cf87e20390daa44
         $DscProperties = @{}
-        foreach ($property in [ScomAgentApprovalSetting].GetProperties().Name)
+        foreach ($property in [ScomReportingSetting].GetProperties().Name)
         {
             # Checks if "NotConfigurable" attribute is set
-            $notConfigurable = [ScomAgentApprovalSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
+            $notConfigurable = [ScomReportingSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
             if (!$notConfigurable)
             {
                 $value = $this.$property
                 # Gets the list of valid values from the ValidateSet attribute
-                $validateSet = [ScomAgentApprovalSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
+                $validateSet = [ScomReportingSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
                 if ($validateSet)
                 {
                     # Workaround for boolean types

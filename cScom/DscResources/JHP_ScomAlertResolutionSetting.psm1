@@ -1,4 +1,4 @@
-﻿enum Ensure
+enum Ensure
 {
     Present
     Absent
@@ -14,13 +14,6 @@ class Reason
     [string] $Phrase
 }
 
-enum ApprovalType
-{
-    Pending
-    AutoReject
-    AutoApprove
-}
-
 function Get-Resource
 {
     [OutputType([Hashtable])]
@@ -29,25 +22,36 @@ function Get-Resource
     (
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [int]
+        $AlertAutoResolveDays,
+        [int]
+        $HealthyAlertAutoResolveDays
     )
 
     $reasonList = @()
-    $setting = (Get-ScomAgentApprovalSetting).AgentApprovalSetting
+    $setting = Get-ScomAlertResolutionSetting
 
-    if ($setting -ne $ApprovalType)
+    if ($AlertAutoResolveDays -gt 0 -and $setting.AlertAutoResolveDays -ne $AlertAutoResolveDays)
     {
         $reasonList += @{
-            Code   = 'ScomAgentApprovalSetting:ScomAgentApprovalSetting:WrongApprovalSetting'
-            Phrase = "Approval setting is $setting but should be $ApprovalType"
+            Code   = 'ScomAlertResolutionSetting:ScomAlertResolutionSetting:WrongAutoResolveSetting'
+            Phrase = "Auto resolve setting is $($setting.AlertAutoResolveDays) but should be $AlertAutoResolveDays"
+        }
+    }
+
+    if ($AlertAutoResolveDays -gt 0 -and $setting.AlertAutoResolveDays -ne $AlertAutoResolveDays)
+    {
+        $reasonList += @{
+            Code   = 'ScomAlertResolutionSetting:ScomAlertResolutionSetting:WrongHealthyAutoResolveSetting'
+            Phrase = "Healthy auto resolve setting is $($setting.HealthyAlertAutoResolveDays) but should be $HealthyAlertAutoResolveDays"
         }
     }
 
     return @{
-        IsSingleInstance = $IsSingleInstance
-        ApprovalType     = $setting
-        Reasons          = $reasonList
+        IsSingleInstance            = $IsSingleInstance
+        AlertAutoResolveDays        = $setting.AlertAutoResolveDays
+        HealthyAlertAutoResolveDays = $setting.HealthyAlertAutoResolveDays
+        Reasons                     = $reasonList
     }
 }
 
@@ -59,8 +63,10 @@ function Test-Resource
     (
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [int]
+        $AlertAutoResolveDays,
+        [int]
+        $HealthyAlertAutoResolveDays
     )
     
     return ($(Get-Resource @PSBoundParameters).Reasons.Count -eq 0)
@@ -73,27 +79,43 @@ function Set-Resource
     (
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [int]
+        $AlertAutoResolveDays,
+        [int]
+        $HealthyAlertAutoResolveDays
     )
 
     $parameters = @{
-        ErrorAction   = 'Stop'
-        $ApprovalType = $true
-        Confirm       = $false
+        ErrorAction = 'Stop'
     }
 
-    Set-ScomAgentApprovalSetting @parameters
+    if ($AlertAutoResolveDays -le 0 -and $HealthyAlertAutoResolveDays -le 0)
+    {
+        return
+    }
+
+    if ($AlertAutoResolveDays -gt 0)
+    {
+        $parameters['AlertAutoResolveDays'] = $AlertAutoResolveDays
+    }
+
+    if ($HealthyAlertAutoResolveDays -gt 0)
+    {
+        $parameters['HealthyAlertAutoResolveDays'] = $HealthyAlertAutoResolveDays
+    }
+
+    Set-ScomAlertResolutionSetting @parameters
 }
 
 [DscResource()]
-class ScomAgentApprovalSetting
+class ScomAlertResolutionSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
-    [DscProperty(Mandatory)] [ApprovalType] $ApprovalType
+    [DscProperty()] [int] $AlertAutoResolveDays
+    [DscProperty()] [int] $HealthyAlertAutoResolveDays
     [DscProperty(NotConfigurable)] [Reason[]] $Reasons
 
-    [ScomAgentApprovalSetting] Get()
+    [ScomAlertResolutionSetting] Get()
     {
         $parameter = Sync-Parameter -Command (Get-Command Get-Resource) -Parameters $this.GetConfigurableDscProperties()
         return (Get-Resource @parameter)        
@@ -119,15 +141,15 @@ class ScomAgentApprovalSetting
         # The intent is to simplify splatting to functions
         # Source: https://gist.github.com/mgreenegit/e3a9b4e136fc2d510cf87e20390daa44
         $DscProperties = @{}
-        foreach ($property in [ScomAgentApprovalSetting].GetProperties().Name)
+        foreach ($property in [ScomAlertResolutionSetting].GetProperties().Name)
         {
             # Checks if "NotConfigurable" attribute is set
-            $notConfigurable = [ScomAgentApprovalSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
+            $notConfigurable = [ScomAlertResolutionSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
             if (!$notConfigurable)
             {
                 $value = $this.$property
                 # Gets the list of valid values from the ValidateSet attribute
-                $validateSet = [ScomAgentApprovalSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
+                $validateSet = [ScomAlertResolutionSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
                 if ($validateSet)
                 {
                     # Workaround for boolean types

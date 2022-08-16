@@ -42,7 +42,7 @@ function Get-Resource
         $Ensure
     )
 
-    $manPack = Get-SCOMManagementPack | Where-Object { -not $_.Sealed -and ($_.DisplayName -eq $ManagementPack -or $_.Name -eq $ManagementPack) }
+    $manPack = Get-ScomManagementPack | Where-Object { -not $_.Sealed -and ($_.DisplayName -eq $ManagementPack -or $_.Name -eq $ManagementPack) }
     $disco = Get-SCDiscovery | Where-Object { $_.DisplayName -eq $Discovery -or $_.Name -eq $Discovery }
 
     $reasonList = @()
@@ -118,7 +118,7 @@ function Set-Resource
         $Ensure
     )
 
-    $manPack = Get-SCOMManagementPack | Where-Object { -not $_.Sealed -and ($_.DisplayName -eq $ManagementPack -or $_.Name -eq $ManagementPack) }
+    $manPack = Get-ScomManagementPack | Where-Object { -not $_.Sealed -and ($_.DisplayName -eq $ManagementPack -or $_.Name -eq $ManagementPack) }
     $disco = Get-SCDiscovery | Where-Object { $_.DisplayName -eq $Discovery -or $_.Name -eq $Discovery }
 
     if (-not $manPack)
@@ -141,14 +141,14 @@ function Set-Resource
     
     if ($ClassName)
     {
-        $scomClass = Get-SCOMClass | Where-Object { $_.DisplayName -in $ClassName -or $_.Name -in $ClassName }
+        $scomClass = Get-ScomClass | Where-Object { $_.DisplayName -in $ClassName -or $_.Name -in $ClassName }
         if (-not $scomClass) { Write-Error -Message "No class(es) called $($ClassName) found."; return }
 
         $parameters['Class'] = $scomClass
     }
     elseif ($GroupOrInstance)
     {
-        $scomInstance = Get-SCOMClassInstance | Where-Object DisplayName -in $GroupOrInstance
+        $scomInstance = Get-ScomClassInstance | Where-Object DisplayName -in $GroupOrInstance
         if (-not $scomInstance) { Write-Error -Message "No class instance(s) or group(s) called $($GroupOrInstance) found."; return }
 
         $parameters['Instance'] = $ClassName
@@ -156,12 +156,12 @@ function Set-Resource
 
     if ($Ensure -eq 'Present')
     {
-        Enable-SCOMDiscovery @parameters
+        Enable-ScomDiscovery @parameters
     }
 
     if ($Ensure -eq 'Absent')
     {
-        Disable-SCOMDiscovery @parameters
+        Disable-ScomDiscovery @parameters
     }
 }
 

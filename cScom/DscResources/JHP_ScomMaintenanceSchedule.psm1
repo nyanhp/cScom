@@ -83,7 +83,7 @@ function Get-Resource
         $FreqRelativeInterval
     )
 
-    $schedule = Get-SCOMMaintenanceScheduleList | Where-Object -Property Name -eq $Name | Get-SCOMMaintenanceSchedule
+    $schedule = Get-ScomMaintenanceScheduleList | Where-Object -Property Name -eq $Name | Get-ScomMaintenanceSchedule
     $reasonList = @()
 
     if ($Ensure -eq 'Absent' -and $null -ne $schedule)
@@ -159,18 +159,18 @@ function Set-Resource
         $FreqRelativeInterval
     )
     
-    $schedule = Get-SCOMMaintenanceScheduleList | Where-Object -Property Name -eq $this.Name | Get-SCOMMaintenanceSchedule
+    $schedule = Get-ScomMaintenanceScheduleList | Where-Object -Property Name -eq $this.Name | Get-ScomMaintenanceSchedule
 
     if ($this.Ensure -eq 'Present' -and $schedule)
     {
-        $parameters = Sync-Parameter -Parameters $this.GetConfigurableDscProperties() -Command (Get-Command -Name Edit-SCOMMaintenanceSchedule)
+        $parameters = Sync-Parameter -Parameters $this.GetConfigurableDscProperties() -Command (Get-Command -Name Edit-ScomMaintenanceSchedule)
         Edit-ScomMaintenanceSchedule @parameters -Id $schedule.Id
     }
     elseif ($this.Ensure -eq 'Present')
     {
             
-        $parameters = Sync-Parameter -Parameters $this.GetConfigurableDscProperties() -Command (Get-Command -Name New-SCOMMaintenanceSchedule)
-        New-SCOMMaintenanceSchedule @parameters
+        $parameters = Sync-Parameter -Parameters $this.GetConfigurableDscProperties() -Command (Get-Command -Name New-ScomMaintenanceSchedule)
+        New-ScomMaintenanceSchedule @parameters
     }
     else
     {

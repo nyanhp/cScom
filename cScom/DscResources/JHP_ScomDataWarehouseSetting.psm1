@@ -1,4 +1,4 @@
-﻿enum Ensure
+enum Ensure
 {
     Present
     Absent
@@ -14,13 +14,6 @@ class Reason
     [string] $Phrase
 }
 
-enum ApprovalType
-{
-    Pending
-    AutoReject
-    AutoApprove
-}
-
 function Get-Resource
 {
     [OutputType([Hashtable])]
@@ -29,24 +22,37 @@ function Get-Resource
     (
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [Parameter(Mandatory)]
+        [string] 
+        $DatabaseName,
+        [Parameter(Mandatory)]
+        [string]
+        $ServerName
     )
 
     $reasonList = @()
-    $setting = (Get-ScomAgentApprovalSetting).AgentApprovalSetting
+    $setting = Get-ScomDataWarehouseSetting
 
-    if ($setting -ne $ApprovalType)
+    if ($setting.DataWarehouseServerName -ne $ServerName)
     {
         $reasonList += @{
-            Code   = 'ScomAgentApprovalSetting:ScomAgentApprovalSetting:WrongApprovalSetting'
-            Phrase = "Approval setting is $setting but should be $ApprovalType"
+            Code   = 'ScomDataWarehouseSetting:ScomDataWarehouseSetting:WrongServerName'
+            Phrase = "Approval setting is $($setting.DataWarehouseServerName) but should be $ServerName"
+        }
+    }
+
+    if ($setting.DataWarehouseDatabaseName -ne $DatabaseName)
+    {
+        $reasonList += @{
+            Code   = 'ScomDataWarehouseSetting:ScomDataWarehouseSetting:WrongDatabaseName'
+            Phrase = "Approval setting is $($setting.DataWarehouseDatabaseName) but should be $DatabaseName"
         }
     }
 
     return @{
         IsSingleInstance = $IsSingleInstance
-        ApprovalType     = $setting
+        DatabaseName     = $setting.DataWarehouseDatabaseName
+        ServerName       = $setting.DataWarehouseServerName
         Reasons          = $reasonList
     }
 }
@@ -59,8 +65,12 @@ function Test-Resource
     (
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [Parameter(Mandatory)]
+        [string] 
+        $DatabaseName,
+        [Parameter(Mandatory)]
+        [string]
+        $ServerName
     )
     
     return ($(Get-Resource @PSBoundParameters).Reasons.Count -eq 0)
@@ -73,27 +83,32 @@ function Set-Resource
     (
         [System.String]
         $IsSingleInstance,
-        [ApprovalType]
-        $ApprovalType
+        [Parameter(Mandatory)]
+        [string] 
+        $DatabaseName,
+        [Parameter(Mandatory)]
+        [string]
+        $ServerName
     )
 
     $parameters = @{
-        ErrorAction   = 'Stop'
-        $ApprovalType = $true
-        Confirm       = $false
+        ErrorAction  = 'Stop'
+        DatabaseName = $DatabaseName
+        ServerName   = $ServerName
     }
 
-    Set-ScomAgentApprovalSetting @parameters
+    Set-ScomDataWarehouseSetting @parameters
 }
 
 [DscResource()]
-class ScomAgentApprovalSetting
+class ScomDataWarehouseSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
-    [DscProperty(Mandatory)] [ApprovalType] $ApprovalType
+    [DscProperty(Mandatory)] [string] $DatabaseName
+    [DscProperty(Mandatory)] [string] $ServerName
     [DscProperty(NotConfigurable)] [Reason[]] $Reasons
 
-    [ScomAgentApprovalSetting] Get()
+    [ScomDataWarehouseSetting] Get()
     {
         $parameter = Sync-Parameter -Command (Get-Command Get-Resource) -Parameters $this.GetConfigurableDscProperties()
         return (Get-Resource @parameter)        
@@ -119,15 +134,15 @@ class ScomAgentApprovalSetting
         # The intent is to simplify splatting to functions
         # Source: https://gist.github.com/mgreenegit/e3a9b4e136fc2d510cf87e20390daa44
         $DscProperties = @{}
-        foreach ($property in [ScomAgentApprovalSetting].GetProperties().Name)
+        foreach ($property in [ScomDataWarehouseSetting].GetProperties().Name)
         {
             # Checks if "NotConfigurable" attribute is set
-            $notConfigurable = [ScomAgentApprovalSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
+            $notConfigurable = [ScomDataWarehouseSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.DscPropertyAttribute] }).NotConfigurable
             if (!$notConfigurable)
             {
                 $value = $this.$property
                 # Gets the list of valid values from the ValidateSet attribute
-                $validateSet = [ScomAgentApprovalSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
+                $validateSet = [ScomDataWarehouseSetting].GetProperty($property).GetCustomAttributes($false).Where({ $_ -is [System.Management.Automation.ValidateSetAttribute] }).ValidValues
                 if ($validateSet)
                 {
                     # Workaround for boolean types
