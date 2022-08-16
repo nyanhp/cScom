@@ -26,3 +26,7 @@ for by `Name`.
 ## ScomMaintenanceSchedule
 
 Configure a maintenance schedule for one or more objects.
+
+## ScomAgentApprovalSetting
+
+Configure the Agent Approval Setting for the management group. Select between AutoApprove, AutoReject and Pending.
