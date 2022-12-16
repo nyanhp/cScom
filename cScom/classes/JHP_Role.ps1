@@ -1,8 +1,15 @@
-﻿enum Role
+﻿try
 {
-    FirstManagementServer
-    AdditionalManagementServer
-    ReportServer
-    WebConsole
-    NativeConsole
+    [Role]
+}
+catch
+{
+    enum Role
+    {
+        FirstManagementServer
+        AdditionalManagementServer
+        ReportServer
+        WebConsole
+        NativeConsole
+    }
 }

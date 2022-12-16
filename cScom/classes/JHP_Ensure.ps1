@@ -1,5 +1,13 @@
-﻿enum Ensure
+﻿
+try
 {
-    Present
-    Absent
+    [Ensure]
+}
+catch
+{
+    enum Ensure
+    {
+        Present
+        Absent
+    }
 }

@@ -1,9 +1,16 @@
-﻿# Support for DSC v3, for what it's worth
-class Reason
+﻿try
 {
-    [DscProperty()]
-    [string] $Code
+    [Reason]
+}
+catch
+{
+    # Support for DSC v3, for what it's worth
+    class Reason
+    {
+        [DscProperty()]
+        [string] $Code
   
-    [DscProperty()]
-    [string] $Phrase
+        [DscProperty()]
+        [string] $Phrase
+    }
 }
