@@ -1,0 +1,1727 @@
+﻿# Suppressing this rule because these functions are from an external module
+# and are only being used as stubs
+[System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '')]
+param()
+
+function Add-WebConfiguration {
+ [CmdletBinding(ConfirmImpact='Low', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268763')]
+ param(
+     [psobject]
+     ${Value},
+
+     [string]
+     ${Clr},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [hashtable]
+     ${AtElement},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [int]
+     ${AtIndex},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${AtName},
+
+     [switch]
+     ${Force},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Add-WebConfigurationLock {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268770')]
+ param(
+     [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Type},
+
+     [switch]
+     ${Force},
+
+     [switch]
+     ${Passthru},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Add-WebConfigurationProperty {
+ [CmdletBinding(ConfirmImpact='Low', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268814')]
+ param(
+     [Parameter(Mandatory=$true)]
+     [string]
+     ${Name},
+
+     [string]
+     ${Type},
+
+     [psobject]
+     ${Value},
+
+     [string]
+     ${Clr},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [hashtable]
+     ${AtElement},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [int]
+     ${AtIndex},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${AtName},
+
+     [switch]
+     ${Force},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Backup-WebConfiguration {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268815')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true, HelpMessage='Backup name')]
+     [ValidateNotNullOrEmpty()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Clear-WebCentralCertProvider {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=269642')]
+ param(
+     [switch]
+     ${PrivateKeyPassword}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Clear-WebConfiguration {
+ [CmdletBinding(ConfirmImpact='Low', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268817')]
+ param(
+     [string]
+     ${Clr},
+
+     [switch]
+     ${Force},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Clear-WebRequestTracingSetting {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268818')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Clear-WebRequestTracingSettings {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268818')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function ConvertTo-WebApplication {
+ [CmdletBinding(ConfirmImpact='Low', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268819')]
+ param(
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${ApplicationPool},
+
+     [switch]
+     ${Force},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Disable-WebCentralCertProvider {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=269643')]
+ param()
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Disable-WebGlobalModule {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268820')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Disable-WebRequestTracing {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268821')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Enable-WebCentralCertProvider {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=269644')]
+ param(
+     [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${CertStoreLocation},
+
+     [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${UserName},
+
+     [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Password},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${PrivateKeyPassword}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Enable-WebGlobalModule {
+ [CmdletBinding(DefaultParameterSetName='InputProperties', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268822')]
+ param(
+     [Parameter(ParameterSetName='InputObject', Mandatory=$true, ValueFromPipeline=$true)]
+     [psobject]
+     ${InputObject},
+
+     [Parameter(ParameterSetName='InputProperties', Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ParameterSetName='InputProperties', ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Type},
+
+     [Parameter(ParameterSetName='InputProperties', ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Precondition},
+
+     [switch]
+     ${Force},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Enable-WebRequestTracing {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268823')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Directory},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [uint32]
+     ${MaxLogFiles},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [uint32]
+     ${MaxLogFileSize},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [switch]
+     ${CustomActions},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${StatusCodes}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebAppDomain {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268825')]
+ param(
+     [Parameter(ParameterSetName='InputObject', ValueFromPipeline=$true)]
+     [psobject]
+     ${InputObject},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [Alias('apppool','pool')]
+     [string]
+     ${ApplicationPool},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [Alias('proc','procid','pid','wp')]
+     [ValidateNotNull()]
+     [uint32]
+     ${ProcessId}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebApplication {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268826')]
+ param(
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Site},
+
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebAppPoolState {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268827')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebBinding {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268828')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Protocol},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Port},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${IPAddress},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${HostHeader}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebCentralCertProvider {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=269640')]
+ param(
+     [switch]
+     ${CertStoreLocation},
+
+     [switch]
+     ${UserName},
+
+     [switch]
+     ${PrivateKeyPassword},
+
+     [switch]
+     ${Enabled}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebConfigFile {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268829')]
+ param(
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebConfiguration {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268830')]
+ param(
+     [switch]
+     ${Recurse},
+
+     [switch]
+     ${Metadata},
+
+     [string]
+     ${Clr},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebConfigurationBackup {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268831')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true, HelpMessage='Backup name')]
+     [ValidateNotNullOrEmpty()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebConfigurationLocation {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268832')]
+ param(
+     [Parameter(Position=2, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Name},
+
+     [switch]
+     ${Recurse},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebConfigurationLock {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268833')]
+ param(
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebConfigurationProperty {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268834')]
+ param(
+     [Parameter(Mandatory=$true)]
+     [string[]]
+     ${Name},
+
+     [switch]
+     ${Recurse},
+
+     [string]
+     ${Clr},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebFilePath {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268835')]
+ param(
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebGlobalModule {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268836')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Image},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Precondition}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebHandler {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268837')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebItemState {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268838')]
+ param(
+     [string]
+     ${Protocol},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebManagedModule {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268839')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebRequest {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268840')]
+ param(
+     [Parameter(ParameterSetName='InputObject', ValueFromPipeline=$true)]
+     [psobject]
+     ${InputObject},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [Alias('pool')]
+     [string]
+     ${AppPool},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [Alias('proc','procid','pid','wp')]
+     [uint32]
+     ${Process}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-Website {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268841')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebsiteState {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268842')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebURL {
+ [CmdletBinding(DefaultParameterSetName='InputPSPath', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268843')]
+ param(
+     [Parameter(ParameterSetName='InputURL', Position=0, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [uri[]]
+     ${Url},
+
+     [Parameter(ParameterSetName='InputPSPath', Position=0, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath},
+
+     [string]
+     ${Accept},
+
+     [switch]
+     ${ResponseHeaders},
+
+     [switch]
+     ${Content}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Get-WebVirtualDirectory {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268844')]
+ param(
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Site},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Application},
+
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function New-WebApplication {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268845')]
+ param(
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Site},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${PhysicalPath},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${ApplicationPool},
+
+     [switch]
+     ${Force}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function New-WebAppPool {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268846')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true, HelpMessage='Application pool name')]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [switch]
+     ${Force}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function New-WebBinding {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268847')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Protocol},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [uint32]
+     ${Port},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${IPAddress},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${HostHeader},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [int]
+     ${SslFlags},
+
+     [switch]
+     ${Force}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function New-WebFtpSite {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268848')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [uint32]
+     ${Id},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [uint32]
+     ${Port},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${IPAddress},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${HostHeader},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${PhysicalPath},
+
+     [switch]
+     ${Force}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function New-WebGlobalModule {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268849')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Image},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Precondition},
+
+     [switch]
+     ${Force}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function New-WebHandler {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268850')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNullOrEmpty()]
+     [string]
+     ${Path},
+
+     [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Verb},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Type},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Modules},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${ScriptProcessor},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Precondition},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateSet('File','Directory','Either','Unspecified')]
+     [string]
+     ${ResourceType},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateSet('None','Read','Write','Script','Execute')]
+     [string]
+     ${RequiredAccess},
+
+     [switch]
+     ${Force},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function New-WebManagedModule {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268851')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Type},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Precondition},
+
+     [switch]
+     ${Force},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function New-Website {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268852')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [uint32]
+     ${Id},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [uint32]
+     ${Port},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${IPAddress},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [int]
+     ${SslFlags},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${HostHeader},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${PhysicalPath},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${ApplicationPool},
+
+     [switch]
+     ${Ssl},
+
+     [switch]
+     ${Force}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function New-WebVirtualDirectory {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268853')]
+ param(
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Site},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Application},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${PhysicalPath},
+
+     [switch]
+     ${Force}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebApplication {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268854')]
+ param(
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Site},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebAppPool {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268855')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebBinding {
+ [CmdletBinding(DefaultParameterSetName='InputBindingProperties', ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268856')]
+ param(
+     [Parameter(ParameterSetName='InputObject', Mandatory=$true, ValueFromPipeline=$true)]
+     [psobject]
+     ${InputObject},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Protocol},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ParameterSetName='InputBindingInformation', Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${BindingInformation},
+
+     [Parameter(ParameterSetName='InputBindingProperties', ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${IPAddress},
+
+     [Parameter(ParameterSetName='InputBindingProperties', ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Port},
+
+     [Parameter(ParameterSetName='InputBindingProperties', ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${HostHeader}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebConfigurationBackup {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268857')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true, HelpMessage='Backup name')]
+     [ValidateNotNullOrEmpty()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebConfigurationLocation {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268858')]
+ param(
+     [Parameter(Position=2, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Name},
+
+     [switch]
+     ${Recurse},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebConfigurationLock {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268859')]
+ param(
+     [switch]
+     ${Force},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebConfigurationProperty {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268860')]
+ param(
+     [Parameter(Mandatory=$true)]
+     [string]
+     ${Name},
+
+     [string]
+     ${Clr},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [hashtable]
+     ${AtElement},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [int]
+     ${AtIndex},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${AtName},
+
+     [switch]
+     ${Force},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebGlobalModule {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268861')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebHandler {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268862')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebManagedModule {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268863')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-Website {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268864')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Remove-WebVirtualDirectory {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268865')]
+ param(
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Site},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Application},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Rename-WebConfigurationLocation {
+ [CmdletBinding(ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268866')]
+ param(
+     [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Name},
+
+     [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${NewName},
+
+     [switch]
+     ${Recurse},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Restart-WebAppPool {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268867')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Restart-WebItem {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268868')]
+ param(
+     [string]
+     ${Protocol},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Restore-WebConfiguration {
+ [CmdletBinding(ConfirmImpact='Low', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268869')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true, HelpMessage='Backup name')]
+     [ValidateNotNullOrEmpty()]
+     [string]
+     ${Name}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Select-WebConfiguration {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268870')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Set-WebBinding {
+ [CmdletBinding(DefaultParameterSetName='InputBindingProperties', ConfirmImpact='Low', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268871')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ParameterSetName='InputBindingInformation', Mandatory=$true, Position=1, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${BindingInformation},
+
+     [Parameter(ParameterSetName='InputBindingProperties', Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${IPAddress},
+
+     [Parameter(ParameterSetName='InputBindingProperties', Position=2, ValueFromPipelineByPropertyName=$true)]
+     [uint32]
+     ${Port},
+
+     [Parameter(ParameterSetName='InputBindingProperties', ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${HostHeader},
+
+     [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${PropertyName},
+
+     [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Value}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Set-WebCentralCertProvider {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=269641')]
+ param(
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${CertStoreLocation},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${UserName},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Password},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${PrivateKeyPassword}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Set-WebCentralCertProviderCredential {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=269645')]
+ param(
+     [Parameter(Mandatory=$true, Position=0)]
+     [string]
+     ${UserName}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Set-WebConfiguration {
+ [CmdletBinding(DefaultParameterSetName='InputPSObject', ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268872')]
+ param(
+     [Parameter(ParameterSetName='InputObject', Mandatory=$true, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [System.Object]
+     ${InputObject},
+
+     [Parameter(ParameterSetName='InputPSObject', Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+     [Alias('v','val')]
+     [psobject]
+     ${Value},
+
+     [string]
+     ${Metadata},
+
+     [string]
+     ${Clr},
+
+     [switch]
+     ${Force},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Set-WebConfigurationProperty {
+ [CmdletBinding(DefaultParameterSetName='InputPSObject', ConfirmImpact='Medium', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268873')]
+ param(
+     [Parameter(Mandatory=$true)]
+     [string]
+     ${Name},
+
+     [Parameter(ParameterSetName='InputObject', Mandatory=$true, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [System.Object]
+     ${InputObject},
+
+     [Parameter(ParameterSetName='InputPSObject', Mandatory=$true)]
+     [Alias('v','val')]
+     [psobject]
+     ${Value},
+
+     [string]
+     ${Clr},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [hashtable]
+     ${AtElement},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [int]
+     ${AtIndex},
+
+     [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${AtName},
+
+     [switch]
+     ${Force},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Filter},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Set-WebGlobalModule {
+ [CmdletBinding(ConfirmImpact='Low', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268874')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Precondition},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Image}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Set-WebHandler {
+ [CmdletBinding(ConfirmImpact='Low', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268875')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNullOrEmpty()]
+     [string]
+     ${Path},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Verb},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Type},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Modules},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${ScriptProcessor},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Precondition},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateSet('File','Directory','Either','Unspecified')]
+     [string]
+     ${ResourceType},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [ValidateSet('None','Read','Write','Script','Execute')]
+     [string]
+     ${RequiredAccess},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Set-WebManagedModule {
+ [CmdletBinding(ConfirmImpact='Low', HelpUri='https://go.microsoft.com/fwlink/?LinkID=268876')]
+ param(
+     [Parameter(Mandatory=$true, Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Type},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string]
+     ${Precondition},
+
+     [Parameter(ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${Location},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Start-WebAppPool {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268877')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [switch]
+     ${Passthru}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Start-WebCommitDelay {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268816')]
+ param()
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Start-WebItem {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268878')]
+ param(
+     [switch]
+     ${Passthru},
+
+     [string]
+     ${Protocol},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Start-Website {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268879')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [switch]
+     ${Passthru}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Stop-WebAppPool {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268880')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [switch]
+     ${Passthru}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Stop-WebCommitDelay {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268824')]
+ param(
+     [Parameter(Position=2)]
+     [bool]
+     ${Commit},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Stop-WebItem {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268881')]
+ param(
+     [switch]
+     ${Passthru},
+
+     [string]
+     ${Protocol},
+
+     [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
+     [string[]]
+     ${PSPath}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+function Stop-Website {
+ [CmdletBinding(HelpUri='https://go.microsoft.com/fwlink/?LinkID=268882')]
+ param(
+     [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
+     [ValidateNotNull()]
+     [string]
+     ${Name},
+
+     [switch]
+     ${Passthru}
+ )
+
+ throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+
