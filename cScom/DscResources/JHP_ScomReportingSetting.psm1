@@ -1,25 +1,64 @@
-enum Ensure
+
+try
 {
-    Present
-    Absent
+    [Ensure]
+}
+catch
+{
+    enum Ensure
+    {
+        Present
+        Absent
+    }
 }
 
-# Support for DSC v3, for what it's worth
-class Reason
+try
 {
-    [DscProperty()]
-    [string] $Code
+    [Reason]
+}
+catch
+{
+    # Support for DSC v3, for what it's worth
+    class Reason
+    {
+        [DscProperty()]
+        [string] $Code
   
-    [DscProperty()]
-    [string] $Phrase
+        [DscProperty()]
+        [string] $Phrase
+    }
 }
 
-enum ApprovalType
+try
 {
-    Pending
-    AutoReject
-    AutoApprove
+    [Role]
 }
+catch
+{
+    enum Role
+    {
+        FirstManagementServer
+        AdditionalManagementServer
+        ReportServer
+        WebConsole
+        NativeConsole
+    }
+}
+
+try
+{
+    [ApprovalType]
+}
+catch
+{
+    enum ApprovalType
+    {
+        Pending
+        AutoReject
+        AutoApprove
+    }
+}
+
 
 function Get-Resource
 {

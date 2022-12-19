@@ -1,36 +1,74 @@
-﻿enum Ensure
+﻿
+try
 {
-    Present
-    Absent
+    [Ensure]
 }
-   
-# Support for DSC v3, for what it's worth
-class Reason
+catch
 {
-    [DscProperty()]
-    [string] $Code
-     
-    [DscProperty()]
-    [string] $Phrase
+    enum Ensure
+    {
+        Present
+        Absent
+    }
 }
 
-enum MaintenanceModeReason
+try
 {
-    PlannedOther
-    UnplannedOther
-    PlannedHardwareMaintenance
-    UnplannedHardwareMaintenance
-    PlannedHardwareInstallation
-    UnplannedHardwareInstallation
-    PlannedOperatingSystemReconfiguration
-    UnplannedOperatingSystemReconfiguration
-    PlannedApplicationMaintenance
-    UnplannedApplicationMaintenance
-    ApplicationInstallation
-    ApplicationUnresponsive
-    ApplicationUnstable
-    SecurityIssue
-    LossOfNetworkConnectivity
+    [Reason]
+}
+catch
+{
+    # Support for DSC v3, for what it's worth
+    class Reason
+    {
+        [DscProperty()]
+        [string] $Code
+  
+        [DscProperty()]
+        [string] $Phrase
+    }
+}
+
+try
+{
+    [Role]
+}
+catch
+{
+    enum Role
+    {
+        FirstManagementServer
+        AdditionalManagementServer
+        ReportServer
+        WebConsole
+        NativeConsole
+    }
+}
+
+try
+{
+    [MaintenanceModeReason]
+}
+catch
+{
+    enum MaintenanceModeReason
+    {
+        PlannedOther
+        UnplannedOther
+        PlannedHardwareMaintenance
+        UnplannedHardwareMaintenance
+        PlannedHardwareInstallation
+        UnplannedHardwareInstallation
+        PlannedOperatingSystemReconfiguration
+        UnplannedOperatingSystemReconfiguration
+        PlannedApplicationMaintenance
+        UnplannedApplicationMaintenance
+        ApplicationInstallation
+        ApplicationUnresponsive
+        ApplicationUnstable
+        SecurityIssue
+        LossOfNetworkConnectivity
+    }
 }
 
 function Get-Resource

@@ -1,26 +1,48 @@
-﻿enum Ensure
+﻿
+try
 {
-    Present
-    Absent
+    [Ensure]
+}
+catch
+{
+    enum Ensure
+    {
+        Present
+        Absent
+    }
 }
 
-# Support for DSC v3, for what it's worth
-class Reason
+try
 {
-    [DscProperty()]
-    [string] $Code
+    [Reason]
+}
+catch
+{
+    # Support for DSC v3, for what it's worth
+    class Reason
+    {
+        [DscProperty()]
+        [string] $Code
   
-    [DscProperty()]
-    [string] $Phrase
+        [DscProperty()]
+        [string] $Phrase
+    }
 }
 
-enum Role
+try
 {
-    FirstManagementServer
-    AdditionalManagementServer
-    ReportServer
-    WebConsole
-    NativeConsole
+    [Role]
+}
+catch
+{
+    enum Role
+    {
+        FirstManagementServer
+        AdditionalManagementServer
+        ReportServer
+        WebConsole
+        NativeConsole
+    }
 }
 
 function Get-Resource

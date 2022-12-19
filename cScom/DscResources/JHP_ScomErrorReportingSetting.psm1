@@ -1,24 +1,62 @@
-enum Ensure
+
+try
 {
-    Present
-    Absent
+    [Ensure]
+}
+catch
+{
+    enum Ensure
+    {
+        Present
+        Absent
+    }
 }
 
-# Support for DSC v3, for what it's worth
-class Reason
+try
 {
-    [DscProperty()]
-    [string] $Code
+    [Reason]
+}
+catch
+{
+    # Support for DSC v3, for what it's worth
+    class Reason
+    {
+        [DscProperty()]
+        [string] $Code
   
-    [DscProperty()]
-    [string] $Phrase
+        [DscProperty()]
+        [string] $Phrase
+    }
 }
 
-enum ReportSetting
+try
 {
-    AutomaticallySend
-    OptOut # Parameter name DoNotSend, whoever thought of this brilliant idea.
-    PromptBeforeSending
+    [Role]
+}
+catch
+{
+    enum Role
+    {
+        FirstManagementServer
+        AdditionalManagementServer
+        ReportServer
+        WebConsole
+        NativeConsole
+    }
+}
+
+try
+{
+    [ReportSetting]
+}
+catch
+{
+    enum ReportSetting
+    {
+        AutomaticallySend
+        OptOut # Parameter name DoNotSend, whoever thought of this brilliant idea.
+        PromptBeforeSending
+    }
 }
 
 function Get-Resource
