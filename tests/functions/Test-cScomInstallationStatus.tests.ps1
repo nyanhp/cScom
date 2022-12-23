@@ -4,24 +4,20 @@
         function global:Get-WebSite {}
     }
 
-    if (-not (Get-Command -Name Get-Package -ErrorAction SilentlyContinue))
+    function Get-Package
     {
-        function Get-Package
-        {
-            [CmdletBinding()]
-            param
-            (
-                [Parameter()]
-                [string]
-                $ProviderName,
+        [CmdletBinding()]
+        param
+        (
+            [Parameter()]
+            [string]
+            $ProviderName,
 
-                [Parameter()]
-                [string]
-                $Name
-            )
-        }
+            [Parameter()]
+            [string]
+            $Name
+        )
     }
-
     $casesPresent = @(
         @{
             ScomComponent = @{
