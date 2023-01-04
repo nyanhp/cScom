@@ -124,8 +124,6 @@
         }
     )
 
-    . (Resolve-Path "$global:testroot\..\cScom\classes\JHP_Ensure.ps1").Path
-    . (Resolve-Path "$global:testroot\..\cScom\classes\JHP_Reason.ps1").Path
     . (Resolve-Path "$global:testroot\..\cScom\classes\JHP_Role.ps1").Path
 }
 

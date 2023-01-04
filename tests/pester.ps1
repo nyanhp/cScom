@@ -20,25 +20,9 @@ $global:testroot = $PSScriptRoot
 $global:__pester_data = @{ }
 
 Remove-Module cScom -ErrorAction Ignore
-Import-Module "$PSScriptRoot\..\cScom\cScom.psd1"
-Import-Module "$PSScriptRoot\..\cScom\cScom.psm1" -Force
+Import-Module "$PSScriptRoot\..\publish\cScom\cScom.psd1"
+Import-Module "$PSScriptRoot\..\publish\cScom\cScom.psm1" -Force
 Import-Module -Force "$PSScriptRoot\helpers\WebAdministrationStub.psm1"
-
-enum Ensure
-{
-    Present
-    Absent
-}
-
-# Support for DSC v3, for what it's worth
-class Reason
-{
-    [DscProperty()]
-    [string] $Code
-  
-    [DscProperty()]
-    [string] $Phrase
-}
 
 # Need to import explicitly so we can use the configuration class
 Import-Module Pester

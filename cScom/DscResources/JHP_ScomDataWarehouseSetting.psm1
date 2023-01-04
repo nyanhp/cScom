@@ -1,33 +1,5 @@
 
-try
-{
-    [Ensure]
-}
-catch
-{
-    enum Ensure
-    {
-        Present
-        Absent
-    }
-}
 
-try
-{
-    [Reason]
-}
-catch
-{
-    # Support for DSC v3, for what it's worth
-    class Reason
-    {
-        [DscProperty()]
-        [string] $Code
-  
-        [DscProperty()]
-        [string] $Phrase
-    }
-}
 
 try
 {
@@ -138,7 +110,7 @@ function Set-Resource
 }
 
 [DscResource()]
-class ScomDataWarehouseSetting
+class ScomDataWarehouseSetting : ResourceBase
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty(Mandatory)] [string] $DatabaseName

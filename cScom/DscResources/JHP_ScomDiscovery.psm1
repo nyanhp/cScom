@@ -1,33 +1,5 @@
 ﻿
-try
-{
-    [Ensure]
-}
-catch
-{
-    enum Ensure
-    {
-        Present
-        Absent
-    }
-}
 
-try
-{
-    [Reason]
-}
-catch
-{
-    # Support for DSC v3, for what it's worth
-    class Reason
-    {
-        [DscProperty()]
-        [string] $Code
-  
-        [DscProperty()]
-        [string] $Phrase
-    }
-}
 
 try
 {
@@ -229,7 +201,7 @@ function Test-Resource
 }
       
 [DscResource()]
-class ScomDiscovery
+class ScomDiscovery : ResourceBase
 {
     [DscProperty(Key)] [string] $Discovery
     [DscProperty(Key)] [string] $ManagementPack

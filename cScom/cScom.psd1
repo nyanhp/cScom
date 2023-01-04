@@ -6,9 +6,6 @@
     # Version number of this module.
     ModuleVersion        = '1.0.3'
 
-    # Supported PSEditions
-    # CompatiblePSEditions = @()
-
     # ID used to uniquely identify this module
     GUID                 = 'b4632b7c-b7c6-4b99-ae83-f95199630ec0'
 
@@ -25,54 +22,12 @@
     Description          = 'DSC resources to deploy and configure SCOM. Major revamp of xScom.'
 
     # Minimum version of the PowerShell engine required by this module
-    # PowerShellVersion = ''
-
-    # Name of the PowerShell host required by this module
-    # PowerShellHostName = ''
-
-    # Minimum version of the PowerShell host required by this module
-    # PowerShellHostVersion = ''
-
-    # Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-    # DotNetFrameworkVersion = ''
-
-    # Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-    # ClrVersion = ''
-
-    # Processor architecture (None, X86, Amd64) required by this module
-    # ProcessorArchitecture = ''
+    PowerShellVersion    = '5.1'
 
     # Modules that must be imported into the global environment prior to importing this module
     RequiredModules      = @(
         'AutomatedLab.Common'
-    )
-
-    # Assemblies that must be loaded prior to importing this module
-    # RequiredAssemblies = @()
-
-    # Script files (.ps1) that are run in the caller's environment prior to importing this module.
-    # ScriptsToProcess = @()
-
-    # Type files (.ps1xml) to be loaded when importing this module
-    # TypesToProcess = @()
-
-    # Format files (.ps1xml) to be loaded when importing this module
-    # FormatsToProcess = @()
-
-    # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-    NestedModules        = @(
-        'DscResources\JHP_ScomAgentApprovalSetting.psd1'
-        'DscResources\JHP_ScomAlertResolutionSetting.psd1'
-        'DscResources\JHP_ScomComponent.psd1'
-        'DscResources\JHP_ScomDatabaseGroomingSetting.psd1'
-        'DscResources\JHP_ScomDataWarehouseSetting.psd1'
-        'DscResources\JHP_ScomDiscovery.psd1'
-        'DscResources\JHP_ScomErrorReportingSetting.psd1'
-        'DscResources\JHP_ScomHeartbeatSetting.psd1'
-        'DscResources\JHP_ScomMaintenanceSchedule.psd1'
-        'DscResources\JHP_ScomManagementPack.psd1'
-        'DscResources\JHP_ScomReportingSetting.psd1'
-        'DscResources\JHP_ScomWebAddressSetting.psd1'
+        'DscResource.Base'
     )
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
@@ -83,13 +38,7 @@
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-    # CmdletsToExport = '*'
-
-    # Variables to export from this module
-    # VariablesToExport = '*'
-
-    # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-    # AliasesToExport = '*'
+    CmdletsToExport      = @()
 
     # DSC resources to export from this module
     DscResourcesToExport = @(
@@ -119,22 +68,22 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            # Tags = @()
+            Tags         = @('SCOM', 'DesiredStateConfiguration', 'DSC', 'DSCResource')
 
             # A URL to the license for this module.
-            # LicenseUri = ''
+            LicenseUri   = 'https://github.com/nyanhp/cScom/blob/main/LICENSE'
 
             # A URL to the main website for this project.
-            # ProjectUri = ''
+            ProjectUri   = 'https://github.com/nyanhp/cScom'
 
             # A URL to an icon representing this module.
             # IconUri = ''
 
             # ReleaseNotes of this module
-            # ReleaseNotes = ''
+            ReleaseNotes = '[1.0.3] Compatibility with other resources by including DscResource.Base'
 
             # Prerelease string of this module
-            Prerelease = 'beta001'
+            Prerelease   = 'beta002'
 
             # Flag to indicate whether the module requires explicit user acceptance for install/update/save
             # RequireLicenseAcceptance = $false
@@ -145,12 +94,5 @@
         } # End of PSData hashtable
 
     } # End of PrivateData hashtable
-
-    # HelpInfo URI of this module
-    # HelpInfoURI = ''
-
-    # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
-    # DefaultCommandPrefix = ''
-
 }
 

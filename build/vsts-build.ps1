@@ -40,7 +40,9 @@ Copy-Item -Path "$($WorkingDirectory)\cScom" -Destination $publishDir.FullName -
 $theModule = Import-PowerShellDataFile -Path "$($publishDir.FullName)\cScom\cScom.psd1"
 
 #region Gather text data to compile
-$text = @()
+$text = @(
+	'using module .\Modules\DscResource.Base'
+)
 
 # Gather commands
 Get-ChildItem -Path "$($publishDir.FullName)\cScom\classes\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
@@ -62,6 +64,9 @@ Get-ChildItem -Path "$($publishDir.FullName)\cScom\internal\scripts\" -Recurse -
 [System.IO.File]::WriteAllText("$($publishDir.FullName)\cScom\cScom.psm1", ($text -join "`n`n"), [System.Text.Encoding]::UTF8)
 Remove-Item -Path "$($publishDir.FullName)\cScom\internal" -Recurse -Force
 #endregion Update the psm1 file & Cleanup
+
+$null = mkdir "$($publishDir.FullName)\cScom\Modules" -ErrorAction SilentlyContinue
+Save-Module -Name 'DscResource.Base' -Repository $Repository -Path "$($publishDir.FullName)\cScom\Modules"
 
 #region Updating the Module Version
 if ($AutoVersion)

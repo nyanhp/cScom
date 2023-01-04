@@ -1,33 +1,5 @@
 ﻿
-try
-{
-    [Ensure]
-}
-catch
-{
-    enum Ensure
-    {
-        Present
-        Absent
-    }
-}
 
-try
-{
-    [Reason]
-}
-catch
-{
-    # Support for DSC v3, for what it's worth
-    class Reason
-    {
-        [DscProperty()]
-        [string] $Code
-  
-        [DscProperty()]
-        [string] $Phrase
-    }
-}
 
 try
 {
@@ -158,7 +130,7 @@ function Set-Resource
 }
 
 [DscResource()]
-class ScomManagementPack
+class ScomManagementPack : ResourceBase
 {
     [DscProperty(Key)] [System.String] $Name
     [DscProperty()] [System.String] $ManagementPackPath
