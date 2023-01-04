@@ -1,4 +1,4 @@
-﻿[DscResource()]
+[DscResource()]
 class ScomMaintenanceSchedule : ResourceBase
 {
     [DscProperty(Key)] [string] $Name

@@ -123,8 +123,6 @@
             }
         }
     )
-
-    . (Resolve-Path "$global:testroot\..\cScom\classes\JHP_Role.ps1").Path
 }
 
 InModuleScope -ModuleName cScom {

@@ -1,4 +1,4 @@
-﻿[DscResource()]
+[DscResource()]
 class ScomAgentApprovalSetting : ResourceBase
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance

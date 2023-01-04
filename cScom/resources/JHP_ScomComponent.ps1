@@ -1,4 +1,4 @@
-﻿[DscResource()]
+[DscResource()]
 class ScomComponent : ResourceBase
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance

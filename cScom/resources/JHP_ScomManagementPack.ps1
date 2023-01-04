@@ -1,4 +1,4 @@
-﻿[DscResource()]
+[DscResource()]
 class ScomManagementPack : ResourceBase
 {
     [DscProperty(Key)] [System.String] $Name

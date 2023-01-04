@@ -1,4 +1,4 @@
-﻿[DscResource()]
+[DscResource()]
 class ScomDiscovery : ResourceBase
 {
     [DscProperty(Key)] [string] $Discovery
