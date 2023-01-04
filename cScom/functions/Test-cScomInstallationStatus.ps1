@@ -20,7 +20,7 @@ function Test-cScomInstallationStatus
         $ScomComponent
     )
 
-    if ($ScomComponent.Role -eq [Role]::FirstManagementServer -or $ScomComponent.Role -eq [Role]::FirstManagementServer)
+    if ($ScomComponent.Role -eq [ScomRole]::FirstManagementServer -or $ScomComponent.Role -eq [ScomRole]::FirstManagementServer)
     {
         if (Get-Command -Name Get-Package -ErrorAction SilentlyContinue)
         {
@@ -30,7 +30,7 @@ function Test-cScomInstallationStatus
         return (Test-Path -Path (Join-Path -Path $ScomComponent.InstallLocation -ChildPath Server))
     }
 
-    if ($ScomComponent.Role -eq [Role]::NativeConsole)
+    if ($ScomComponent.Role -eq [ScomRole]::NativeConsole)
     {
         if (Get-Command -Name Get-Package -ErrorAction SilentlyContinue)
         {
@@ -40,14 +40,14 @@ function Test-cScomInstallationStatus
         return (Test-Path -Path (Join-Path -Path $ScomComponent.InstallLocation -ChildPath Console))
     }
 
-    if ($ScomComponent.Role -eq [Role]::WebConsole)
+    if ($ScomComponent.Role -eq [ScomRole]::WebConsole)
     {
         $website = Get-Website -Name $ScomComponent.WebSiteName -ErrorAction SilentlyContinue
         if (-not $website) { return $false }
         return $true
     }
 
-    if ($ScomComponent.Role -eq [Role]::ReportServer)
+    if ($ScomComponent.Role -eq [ScomRole]::ReportServer)
     {
         if (Get-Command -Name Get-Package -ErrorAction SilentlyContinue)
         {

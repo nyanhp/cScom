@@ -18,7 +18,7 @@ function Get-cScomParameter
     param
     (
         [Parameter(Mandatory)]
-        [Role]
+        [ScomRole]
         $Role,
 
         [string]
