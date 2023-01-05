@@ -13,6 +13,10 @@ jobs:
     - name: Build
       run: .\build\vsts-build.ps1 -LocalRepo -SkipPublish
       shell: powershell
+    - uses: actions/upload-artifact@v3
+      with:
+        name: module
+        path: publish/cScom
     - name: Validate
       run: .\build\vsts-validate.ps1
       shell: powershell

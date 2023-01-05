@@ -83,7 +83,7 @@
             ReleaseNotes = '[1.0.4] Compatibility with other resources by including DscResource.Base'
 
             # Prerelease string of this module
-            Prerelease   = 'preview0001'
+            Prerelease   = 'preview0002'
 
             # Flag to indicate whether the module requires explicit user acceptance for install/update/save
             # RequireLicenseAcceptance = $false
