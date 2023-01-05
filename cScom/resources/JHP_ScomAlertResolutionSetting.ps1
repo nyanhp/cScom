@@ -1,10 +1,10 @@
 [DscResource()]
-class ScomAlertResolutionSetting : ResourceBase
+class ScomAlertResolutionSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty()] [int] $AlertAutoResolveDays
     [DscProperty()] [int] $HealthyAlertAutoResolveDays
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     [ScomAlertResolutionSetting] Get()
     {

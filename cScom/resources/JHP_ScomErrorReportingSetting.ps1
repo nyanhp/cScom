@@ -1,9 +1,9 @@
 [DscResource()]
-class ScomErrorReportingSetting : ResourceBase
+class ScomErrorReportingSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty(Mandatory)] [ScomReportSetting] $ReportSetting
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     [ScomErrorReportingSetting] Get()
     {

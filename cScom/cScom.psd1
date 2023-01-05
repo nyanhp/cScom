@@ -80,10 +80,10 @@
             # IconUri = ''
 
             # ReleaseNotes of this module
-            ReleaseNotes = '[1.0.4] Compatibility with other resources by including DscResource.Base'
+            ReleaseNotes = '[1.0.5] Compatibility with other resources by prefixing classes'
 
             # Prerelease string of this module
-            Prerelease   = 'preview0003'
+            Prerelease   = ''
 
             # Flag to indicate whether the module requires explicit user acceptance for install/update/save
             # RequireLicenseAcceptance = $false

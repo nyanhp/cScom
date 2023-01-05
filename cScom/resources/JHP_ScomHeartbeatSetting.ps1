@@ -1,10 +1,10 @@
 [DscResource()]
-class ScomHeartbeatSetting : ResourceBase
+class ScomHeartbeatSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty()] [int] $MissingHeartbeatThreshold
     [DscProperty()] [int] $HeartbeatIntervalSeconds
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     [ScomHeartbeatSetting] Get()
     {

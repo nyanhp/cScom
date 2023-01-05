@@ -1,10 +1,10 @@
 [DscResource()]
-class ScomWebAddressSetting : ResourceBase
+class ScomWebAddressSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty()] [string] $WebConsoleUrl
     [DscProperty()] [string] $OnlineProductKnowledgeUrl
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     [ScomWebAddressSetting] Get()
     {
