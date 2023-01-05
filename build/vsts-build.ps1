@@ -36,7 +36,9 @@ if (-not $WorkingDirectory) { $WorkingDirectory = Split-Path $PSScriptRoot }
 # Prepare publish folder
 Write-Host "Creating and populating publishing directory"
 $publishDir = New-Item -Path $WorkingDirectory -Name publish -ItemType Directory -Force
-Copy-Item -Path "$($WorkingDirectory)\cScom" -Destination $publishDir.FullName -Recurse -Force
+$moduleDir = New-Item -path (Join-Path $publishDir cScom) -Force -ItemType Directory
+Copy-Item -Path "$($WorkingDirectory)\cScom\cScom.ps*1" -Destination $moduleDir.FullName -Force
+Copy-Item -Path "$($WorkingDirectory)\cScom\Examples" -Destination $moduleDir.FullName -Force -Recurse
 $theModule = Import-PowerShellDataFile -Path "$($publishDir.FullName)\cScom\cScom.psd1"
 
 #region Gather text data to compile
@@ -45,27 +47,26 @@ $text = @(
 )
 
 # Gather commands
-Get-ChildItem -Path "$($publishDir.FullName)\cScom\classes\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$($WorkingDirectory)\cScom\classes\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
 	$text += [System.IO.File]::ReadAllText($_.FullName)
 }
-Get-ChildItem -Path "$($publishDir.FullName)\cScom\resources\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$($WorkingDirectory)\cScom\resources\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
 	$text += [System.IO.File]::ReadAllText($_.FullName)
 }
-Get-ChildItem -Path "$($publishDir.FullName)\cScom\functions\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$($WorkingDirectory)\cScom\functions\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
 	$text += [System.IO.File]::ReadAllText($_.FullName)
 }
-Get-ChildItem -Path "$($publishDir.FullName)\cScom\internal\functions\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$($WorkingDirectory)\cScom\internal\functions\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
 	$text += [System.IO.File]::ReadAllText($_.FullName)
 }
 
 # Gather scripts
-Get-ChildItem -Path "$($publishDir.FullName)\cScom\internal\scripts\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$($WorkingDirectory)\cScom\internal\scripts\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
 	$text += [System.IO.File]::ReadAllText($_.FullName)
 }
 
 #region Update the psm1 file & Cleanup
 [System.IO.File]::WriteAllText("$($publishDir.FullName)\cScom\cScom.psm1", ($text -join "`n`n"), [System.Text.Encoding]::UTF8)
-Remove-Item -Path "$($publishDir.FullName)\cScom\internal" -Recurse -Force
 #endregion Update the psm1 file & Cleanup
 
 $null = mkdir "$($publishDir.FullName)\cScom\Modules" -ErrorAction SilentlyContinue
