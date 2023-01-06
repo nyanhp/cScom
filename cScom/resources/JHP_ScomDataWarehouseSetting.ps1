@@ -1,10 +1,10 @@
 [DscResource()]
-class ScomDataWarehouseSetting : ResourceBase
+class ScomDataWarehouseSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty(Mandatory)] [string] $DatabaseName
     [DscProperty(Mandatory)] [string] $ServerName
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     [ScomDataWarehouseSetting] Get()
     {

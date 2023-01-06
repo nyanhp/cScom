@@ -1,5 +1,5 @@
 [DscResource()]
-class ScomMaintenanceSchedule : ResourceBase
+class ScomMaintenanceSchedule
 {
     [DscProperty(Key)] [string] $Name
     [DscProperty(Mandatory)] [string[]] $MonitoringObjectGuid
@@ -8,13 +8,13 @@ class ScomMaintenanceSchedule : ResourceBase
     [DscProperty(Mandatory)] [ScomMaintenanceModeReason] $ReasonCode
     [DscProperty(Mandatory)] [uint32] $FreqType
     [DscProperty()] [bool] $Recursive
-    [DscProperty()] [Ensure] $Ensure
+    [DscProperty()] [ScomEnsure] $Ensure
     [DscProperty()] [datetime] $ActiveEndDate
     [DscProperty()] [string] $Comments
     [DscProperty()] [uint32] $FreqInterval
     [DscProperty()] [uint32] $FreqRecurrenceFactor
     [DscProperty()] [uint32] $FreqRelativeInterval
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     ScomMaintenanceSchedule ()
     {

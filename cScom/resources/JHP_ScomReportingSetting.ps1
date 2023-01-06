@@ -1,9 +1,9 @@
 [DscResource()]
-class ScomReportingSetting : ResourceBase
+class ScomReportingSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty(Mandatory)] [string] $ReportingServerUrl
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     [ScomReportingSetting] Get()
     {

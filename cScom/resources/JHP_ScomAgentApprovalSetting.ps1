@@ -1,9 +1,9 @@
 [DscResource()]
-class ScomAgentApprovalSetting : ResourceBase
+class ScomAgentApprovalSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty(Mandatory)] [ScomApprovalType] $ApprovalType
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     [ScomAgentApprovalSetting] Get()
     {

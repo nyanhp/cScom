@@ -1,13 +1,13 @@
 [DscResource()]
-class ScomDiscovery : ResourceBase
+class ScomDiscovery
 {
     [DscProperty(Key)] [string] $Discovery
     [DscProperty(Key)] [string] $ManagementPack
     [DscProperty()] [string[]] $ClassName
     [DscProperty()] [string[]] $GroupOrInstance
     [DscProperty()] [bool] $Enforce
-    [DscProperty()] [Ensure] $Ensure
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty()] [ScomEnsure] $Ensure
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
    
     ScomDiscovery ()
     {

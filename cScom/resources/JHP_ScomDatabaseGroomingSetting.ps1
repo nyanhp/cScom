@@ -1,5 +1,5 @@
 [DscResource()]
-class ScomDatabaseGroomingSetting : ResourceBase
+class ScomDatabaseGroomingSetting
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty()] [byte] $AlertDaysToKeep
@@ -11,7 +11,7 @@ class ScomDatabaseGroomingSetting : ResourceBase
     [DscProperty()] [byte] $PerformanceDataDaysToKeep
     [DscProperty()] [byte] $PerformanceSignatureDaysToKeep
     [DscProperty()] [byte] $StateChangeEventDaysToKeep
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     [ScomDatabaseGroomingSetting] Get()
     {

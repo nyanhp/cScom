@@ -40,18 +40,14 @@ $moduleDir = New-Item -path (Join-Path $publishDir cScom) -Force -ItemType Direc
 Copy-Item -Path "$($WorkingDirectory)\cScom\cScom.ps*1" -Destination $moduleDir.FullName -Force
 Copy-Item -Path "$($WorkingDirectory)\cScom\Examples" -Destination $moduleDir.FullName -Force -Recurse
 $theModule = Import-PowerShellDataFile -Path "$($publishDir.FullName)\cScom\cScom.psd1"
-Write-Host "::set-output name=isprerelease::$( (-not [string]::IsNullOrWhiteSpace($theModule.PrivateData.PSData.Prerelease)))"
 $ver = $theModule.ModuleVersion
 if ($theModule.PrivateData.PSData.Prerelease)
 {
 	$ver = "$ver-$($theModule.PrivateData.PSData.Prerelease)"
 }
-Write-Host "::set-output name=releaseversion::$ver"
 
 #region Gather text data to compile
-$text = @(
-	'using module .\Modules\DscResource.Base'
-)
+$text = @( )
 
 # Gather commands
 Get-ChildItem -Path "$($WorkingDirectory)\cScom\classes\" -Recurse -File -Filter "*.ps1" | ForEach-Object {
@@ -75,9 +71,6 @@ Get-ChildItem -Path "$($WorkingDirectory)\cScom\internal\scripts\" -Recurse -Fil
 #region Update the psm1 file & Cleanup
 [System.IO.File]::WriteAllText("$($publishDir.FullName)\cScom\cScom.psm1", ($text -join "`n`n"), [System.Text.Encoding]::UTF8)
 #endregion Update the psm1 file & Cleanup
-
-$null = mkdir "$($publishDir.FullName)\cScom\Modules" -ErrorAction SilentlyContinue
-Save-Module -Name 'DscResource.Base' -Repository $Repository -Path "$($publishDir.FullName)\cScom\Modules"
 
 #region Updating the Module Version
 if ($AutoVersion)

@@ -1,5 +1,5 @@
 [DscResource()]
-class ScomComponent : ResourceBase
+class ScomComponent
 {
     [DscProperty(Key)] [ValidateSet('yes')] [string] $IsSingleInstance
     [DscProperty(Key)] [ScomRole] $Role
@@ -12,7 +12,7 @@ class ScomComponent : ResourceBase
     [DscProperty()] [uint16] $SqlInstancePort
     [DscProperty()] [uint16] $DwSqlInstancePort
     [DscProperty()] [System.String] $DwSqlServerInstance
-    [DscProperty()] [Ensure] $Ensure
+    [DscProperty()] [ScomEnsure] $Ensure
     [DscProperty()] [System.String] $ProductKey
     [DscProperty()] [System.String] $InstallLocation
     [DscProperty()] [System.UInt16] $ManagementServicePort
@@ -25,7 +25,7 @@ class ScomComponent : ResourceBase
     [DscProperty()] [bool] $WebConsoleUseSSL
     [DscProperty()] [bool] $UseMicrosoftUpdate
     [DscProperty()] [string] $SRSInstance
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     ScomComponent ()
     {
@@ -77,7 +77,7 @@ class ScomComponent : ResourceBase
         if (-not $status -and $this.Ensure -eq 'Present')
         {
             $returnTable.Reasons = @(
-                [Reason]@{
+                [ScomReason]@{
                     Code   = 'ScomComponent:ScomComponent:ProductNotInstalled'
                     Phrase = "SCOM component $($this.Role) is not installed, but it should be."
                 }
@@ -87,7 +87,7 @@ class ScomComponent : ResourceBase
         if ($status -and $this.Ensure -eq 'Absent')
         {
             $returnTable.Reasons = @(
-                [Reason]@{
+                [ScomReason]@{
                     Code   = 'ScomComponent:ScomComponent:ProductInstalled'
                     Phrase = "SCOM component $($this.Role) is installed, but it should not be."
                 }

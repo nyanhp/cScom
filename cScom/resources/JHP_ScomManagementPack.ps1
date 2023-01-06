@@ -1,11 +1,11 @@
 [DscResource()]
-class ScomManagementPack : ResourceBase
+class ScomManagementPack
 {
     [DscProperty(Key)] [System.String] $Name
     [DscProperty()] [System.String] $ManagementPackPath
     [DscProperty()] [System.String] $ManagementPackContent
-    [DscProperty()] [Ensure] $Ensure
-    [DscProperty(NotConfigurable)] [Reason[]] $Reasons
+    [DscProperty()] [ScomEnsure] $Ensure
+    [DscProperty(NotConfigurable)] [ScomReason[]] $Reasons
 
     ScomManagementPack ()
     {
