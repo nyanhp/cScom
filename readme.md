@@ -1,4 +1,6 @@
-﻿# cScom
+>This repo has moved to <https://codeberg.org/nyanhp/cScom>
+ 
+ # cScom
 
 Class-based DSC resources to manage SCOM components as well as install SCOM. Looking for a schema-based (MOF) resource instead? Go to <https://github.com/dsccommunity/xscom>.
 
