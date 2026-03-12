@@ -1,4 +1,4 @@
->This repo has moved to <https://codeberg.org/nyanhp/cScom>
+>This repo is being transferred to the DSC Community, <https://github.com/dsccommunity>
  
  # cScom
 
